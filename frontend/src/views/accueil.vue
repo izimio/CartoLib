@@ -1,15 +1,21 @@
 <template>
   <div class="home">
-      <div>
-          <h2>postez</h2>
-          <router-link to="/add">
-                    <button>ICI</button>
-          </router-link>
-      </div>
-    <article v-if="allCartes[0] || error[1]">
-      <div v-for="(cartes, index) in allCartes" :key="index">
-        <p v-if="index <= 5">{{ cartes.name }}</p>
-      </div>
+    <div>
+      <h2>postez</h2>
+      <router-link to="/add">
+        <button>ICI</button>
+      </router-link>
+    </div>
+    <article v-if="allCartes[0] || error[1]" class="all">
+        <Carte
+          v-for="(cartes, index) in allCartes"
+          :key="index"
+          :name="cartes.name"
+          :media="cartes.media"
+          :createdAt="cartes.createdAt"
+          :updatedAt="cartes.updatedAt"
+          :num="0"
+        />
     </article>
     <article v-else>
       <p>{{ error }}</p>
@@ -18,9 +24,13 @@
 </template>
 
 <script>
+import Carte from "@/components/carte.vue";
+
 export default {
   name: "Home",
-  components: {},
+  components: {
+    Carte,
+  },
   data() {
     return {
       allCartes: {},
@@ -63,4 +73,8 @@ export default {
 </script>
 
 <style lang="scss">
+.all {
+  display: flex;
+  justify-content: space-evenly;
+}
 </style>
