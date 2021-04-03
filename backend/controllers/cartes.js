@@ -34,9 +34,9 @@ exports.createCarte = (req, res, next) => {
 
 exports.getAllCartes = (req, res, next) => {
      models.Cartes.findAll({ // getting all the post and order them by update
-               attributes: ['id', 'name', 'body', 'year', 'media', 'month', 'updatedAt'],
+               attributes: ['id', 'name', 'body', 'year', 'media', 'month', 'updatedAt', 'createdAt'],
                order: [
-                    ['updatedAt', 'DESC']
+                    ['createdAt', 'DESC']
                ],
           })
           .then(carte => {
