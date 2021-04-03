@@ -2,7 +2,6 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const helmet = require("helmet")
 const path = require('path')
-const multer = require('multer')
 const apiLimiter = require("./middleware/limits-rate")
 const app = express()
 
@@ -25,7 +24,4 @@ app.use(bodyParser.urlencoded({
 app.use(helmet()) // adding http header to secure the ap
 app.use('/images', express.static(path.join(__dirname, 'images')));
 
-// all the routes
-
-// exporting app
 module.exports = app
