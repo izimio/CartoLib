@@ -24,7 +24,8 @@ export default {
     login() {
       if (this.password == this.key)
       {
-          this.$router.push({ path: "/accueil" });
+        localStorage.setItem("openner", JSON.stringify("open"));
+          this.$router.push({ name: "accueil" });
       }
     },
   },

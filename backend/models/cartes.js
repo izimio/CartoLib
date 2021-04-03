@@ -7,21 +7,25 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: false
         },
-        body: {
-            type: DataTypes.STRING,
-            allowNull: false
-        },
         media: {
             type: DataTypes.STRING,
             allowNull: false,
         },
         year: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.STRING,
             allowNull: false,
         },
-        month: {
-            type: DataTypes.INTEGER,
-            allowNull: true,
+        type: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        commune: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        pays: {
+            type: DataTypes.STRING,
+            allowNull: false,
         },
     });
     return cartes;

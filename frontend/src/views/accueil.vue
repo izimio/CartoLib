@@ -1,5 +1,11 @@
 <template>
   <div class="home">
+      <div>
+          <h2>postez</h2>
+          <router-link to="/add">
+                    <button>ICI</button>
+          </router-link>
+      </div>
     <article v-if="allCartes[0] || error[1]">
       <div v-for="(cartes, index) in allCartes" :key="index">
         <p v-if="index <= 5">{{ cartes.name }}</p>
@@ -12,8 +18,6 @@
 </template>
 
 <script>
-// @ is an alias to /src
-
 export default {
   name: "Home",
   components: {},
@@ -31,10 +35,11 @@ export default {
     },
   },
   created() {
-    const infos = {
-      limit: 10,
-    };
-    console.log(infos)
+    const storage = localStorage.getItem("openner");
+    if (!storage) {
+      return this.$router.push({ path: "/" });
+    }
+
     fetch("http://localhost:5000/api/cartes/", {
       method: "GET",
       headers: new Headers({
@@ -47,7 +52,7 @@ export default {
           this.error = "Oops, une erreur est survenu";
         } else {
           this.allCartes = arr.carte;
-          console.log("aa")
+          console.log("aa");
         }
       })
       .catch((error) => {

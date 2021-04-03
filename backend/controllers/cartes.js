@@ -10,17 +10,19 @@ const {
 
 
 exports.createCarte = (req, res, next) => {
-     const name = req.body.name
-     const body = req.body.body
-     //const media = (req.file ? `${req.protocol}://${req.get('host')}/images/${req.file.filename}` : null) // ternary operator to adjust the media with the right value
-     const year = req.body.year;
-     const month = (req.body.month ? req.body.month : null);
+     if (!req.file || !req.body.name || !req.body.type || !req.body.commune || !req.body.pays) { // checking fi the new post is long enought
+          return res.status(400).json({
+               error: 'Champs  manquant ou erroné'
+          })
+     }
+     const media = (req.file ? `${req.protocol}://${req.get('host')}/images/${req.file.filename}` : null) // ternary operator to adjust the media with the right value
      models.Cartes.create({ // creating the post 
-               name: name,
-               media: "aa",
-               body: body,
-               year: year,
-               month: month
+               name: req.body.name,
+               media: media,
+               year: req.body.year ? req.body.year : "undefined",
+               type: req.body.type,
+               commune: req.body.commune,
+               pays: req.body.pays
           })
           .then(post => {
                res.status(201).json({
@@ -34,7 +36,7 @@ exports.createCarte = (req, res, next) => {
 
 exports.getAllCartes = (req, res, next) => {
      models.Cartes.findAll({ // getting all the post and order them by update
-               attributes: ['id', 'name', 'body', 'year', 'media', 'month', 'updatedAt', 'createdAt'],
+               attributes: ['id', 'name', 'year', 'media', 'commune','pays','type', 'updatedAt', 'createdAt'],
                order: [
                     ['createdAt', 'DESC']
                ],
@@ -59,7 +61,7 @@ exports.getAllCartes = (req, res, next) => {
 
 exports.getOneCarte = (req, res, next) => {
      models.Cartes.findOne({ // getting one post linked with the right Id
-          attributes: ['id', 'name', 'body', 'year', 'media', 'month', 'updatedAt'],
+          attributes: ['id', 'name', 'year', 'media', 'commune','pays','type', 'updatedAt', 'createdAt'],
                where: {
                     id: req.params.id
                },
