@@ -190,7 +190,11 @@ export default {
       }
     },
     defineDepartement() {
-      if (this.pays == "Tout") this.departement = "Tout";
+      if (this.pays == "Tout") 
+      {
+        this.departement = "Tout";
+        this.commune = "Tout";
+      }
       this.allDepartement = [];
       let i;
       let j;

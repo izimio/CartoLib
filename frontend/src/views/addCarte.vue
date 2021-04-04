@@ -16,7 +16,7 @@
             <input type="text" v-model="pays" required maxlength="50" />
           </div>
           <div class="form_input_location_each">
-            <label for="departement"> Départmeent </label>
+            <label for="departement"> Département </label>
             <input type="text" v-model="departement" />
           </div>
           <div class="form_input_location_each">
@@ -29,13 +29,22 @@
           </div>
         </div>
         <div class="form_input_rightside">
-          <div>
-            <label for="titre"> type </label>
-            <select v-model="type">
-              <option>CPA</option>
-              <option>CPSM</option>
-              <option>CPM</option>
-            </select>
+          <div class="form_input_rightside_filtre">
+            <span
+              v-bind:class="{choosed: type== 'CPA', form_input_rightside_filtre_each: type != 'CPA'}"
+              @click="type = `CPA`"
+              >CPA</span
+            >
+            <span
+               v-bind:class="{choosed: type== 'CPSM', form_input_rightside_filtre_each: type != 'CPSM'}"
+              @click="type = `CPSM`"
+              >CPSM</span
+            >
+            <span
+            v-bind:class="{choosed: type== 'CPM', form_input_rightside_filtre_each: type != 'CPM'}"
+            @click="type = `CPM`"
+              >CPM</span
+            >
           </div>
           <div class="form_input_media">
             <div>
@@ -51,6 +60,7 @@
           </div>
         </div>
         <p>{{ error }}</p>
+        <p>{{ type }}</p>
         <div>
           <div v-if="name.length >= 1" @click="createCarte">
             <button>Créer</button>
@@ -98,6 +108,11 @@ export default {
         name: "accueil",
       });
     },
+    modifyType() {
+      if (this.type == "CPA") {
+        console.log("aaa");
+      }
+    },
     createCarte: function () {
       let file = document.getElementById("file"); // creating a formdata file to send the file
       let formData = new FormData();
@@ -137,8 +152,24 @@ export default {
 <style lang="scss">
 $orange: darken(orange, 5);
 
+.choosed {
+  background-color: lighten($orange, 10);
+  border: 2px solid $orange;
+  margin-left: 1em;
+  margin-right: 1em;
+  padding: 0.2em 0.5em 0.2em 0.5em;
+  border-radius: 5px;
+  transition: 300ms;
+  transform: scale(1.2);
+  &:hover{
+      background-color: lighten($orange, 20);
+  border: 2px solid $orange;
+  }
+}
+
 .all_add {
   &_upper {
+    margin-bottom: 2em;
     padding-bottom: 0.5em;
     font-size: 1.5em;
     background-color: lighten($orange, 5);
@@ -176,23 +207,43 @@ input[type="file"] {
     text-align: center;
     display: flex;
     flex-direction: column;
-    margin: 0em 20em 3em 20em;
+    margin: 0em 20em 2em 20em;
   }
   &_input_lower {
     display: flex;
     flex-direction: column;
   }
   &_input_location {
+    margin-bottom: 2em;
     display: flex;
     justify-content: center;
     &_each {
-      width: 20%;
+      width: 13%;
       display: flex;
       flex-direction: column;
       margin-right: 2em;
       margin-left: 1em;
     }
     text-align: center;
+  }
+  &_input_rightside {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    &_filtre {
+      text-align: center;
+      &_each {
+        margin-left: 1em;
+        margin-right: 1em;
+        padding: 0.2em 0.5em 0.2em 0.5em;
+        border: 1px solid $orange;
+        border-radius: 5px;
+        &:hover {
+          background-color: lighten($orange, 30);
+          cursor: pointer;
+        }
+      }
+    }
   }
 }
 </style>

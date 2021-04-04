@@ -8,8 +8,8 @@
         <h3>{{ name }}</h3>
         <div class="card_core_infos_sub">
           <span class="card_core_pays">{{ pays }} | </span>
-          <span class="card_core_commune"> [ {{ departement }} / </span>
-          <span class="card_core_commune">{{ commune }} ] | </span>
+          <span class="card_core_commune"> {{ departement }} / </span>
+          <span class="card_core_commune">{{ commune }} | </span>
           <span v-if="year != 'null'" class="card_core_date">{{ year }} </span>
           <span v-else class="card_core_date"> date inconnue</span>
         </div>
@@ -44,8 +44,6 @@ export default {
     }
     img {
       margin-left: -1em;
-      width: 824px;
-      height: 467px;
       object-fit: cover;
     }
     text-align: center;
