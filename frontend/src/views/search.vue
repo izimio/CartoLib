@@ -291,6 +291,7 @@ h1 {
 }
 
 .allCarte {
+  padding-bottom: 5em;
   margin-top: 3em;
   display: flex;
   flex-wrap: wrap;
@@ -298,9 +299,7 @@ h1 {
   &_each {
     transition: 400ms;
     box-shadow: 0rem 0.5rem 2rem 0.1rem lighten(black, 60%);
-    &:hover {
-      transform: scale(1.02);
-    }
+    margin-bottom: 0.5em;
   }
 }
 .all_upper {
