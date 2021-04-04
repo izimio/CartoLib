@@ -1,27 +1,32 @@
 <template>
-  <div class="home">
-    <div>
-      <h2>postez</h2>
+  <div class="all_hub">
+    <div class="all_hub_upper">
       <router-link to="/add">
-        <button>ICI</button>
+        <button>Ajouter un carte</button>
       </router-link>
+      <h1>Accueil</h1>
       <router-link to="/search">
         <button>Filtrer</button>
       </router-link>
     </div>
-    <article v-if="allCartes[0]">
+    <article v-if="allCartes[0]" class="allCartebis">
+      <div
+        v-for="(cartes, index) in allCartes"
+        :key="index"
+        class="allCartebis_eachbis"
+      >
         <Carte
-          v-for="(cartes, index) in allCartes"
-          :key="index"
+          v-if="index < 4"
           :name="cartes.name"
           :media="cartes.media"
           :year="cartes.year"
-          :pays="cartes.pays"
           :commune="cartes.commune"
+          :pays="cartes.pays"
           :createdAt="cartes.createdAt"
           :updatedAt="cartes.updatedAt"
           :num="0"
         />
+      </div>
     </article>
     <article v-else>
       <p>{{ error }}</p>
@@ -46,7 +51,7 @@ export default {
   methods: {
     login() {
       if (this.password == this.key) {
-        console.log("aa")
+        console.log("aa");
         this.$router.push({ path: "/accueil" });
       }
     },
@@ -80,4 +85,63 @@ export default {
 </script>
 
 <style lang="scss">
+$orange: darken(orange, 5);
+.all_hub {
+  &_upper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    button{
+      margin-right: 2em;
+      margin-left: 2em;
+      background-color: $orange;
+      border: none;
+      width: 100px;
+      height: 75px;
+      &:hover{
+        background-color: darken($orange,10);
+        cursor: pointer;
+      }
+    }
+    h1 {
+      font-size: 3em;
+      font-family: "Indie Flower";
+      margin-top: 0.9em;
+    }
+    background-color: lighten($orange, 5);
+  }
+}
+.allCartebis {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  &_eachbis {
+    overflow-x: hidden;
+    padding: 0.5em;
+    transform: scale(0.7);
+    width: 48%;
+    &:hover {
+      transition: 400ms;
+      transform: scale(0.75);
+    }
+  }
+}
+
+  @media all and (max-width: 768px) {
+.allCartebis {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  &_eachbis {
+    overflow-x: hidden;
+    padding: 0.5em;
+    transform: scale(0.7);
+    width: 100%;
+    &:hover {
+      transition: 400ms;
+      transform: scale(0.75);
+    }
+  }
+}
+  }
 </style>

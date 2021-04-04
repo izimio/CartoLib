@@ -1,13 +1,17 @@
 <template>
   <article v-if="num == '0'" class="card">
     <div class="card_core">
-      <img :src="media" alt="media" />
-      <div>
+      <div class="card_core_img">
+        <img :src="media" alt="media" />
+      </div>
+      <div class="card_core_infos">
         <h3>{{ name }}</h3>
-        <span class="card_core_pays">{{ pays }} | </span>
-        <span class="card_core_commune">{{ commune }} | </span>
-        <span v-if="year != 'null'" class="card_core_date">{{ year }} </span>
-        <span v-else class="card_core_date"> date inconnue</span>
+        <div class="card_core_infos_sub">
+          <span class="card_core_pays">{{ pays }} | </span>
+          <span class="card_core_commune">{{ commune }} | </span>
+          <span v-if="year != 'null'" class="card_core_date">{{ year }} </span>
+          <span v-else class="card_core_date"> date inconnue</span>
+        </div>
       </div>
     </div>
   </article>
@@ -23,8 +27,27 @@ export default {
 
 <style lang="scss">
 .card {
-  padding: 1em;
+  &:hover{
+    cursor: pointer;
+  }
+  padding: 0.5em;
+  h3 {
+    font-size: 2em;
+    margin-top: 0.2em;
+    font-family: "Indie Flower";
+  }
   &_core {
+    box-shadow: 0rem 0.5rem 2rem 0.1rem lighten(black, 60%);
+    padding: 1em;
+    &_img {
+      width: 100%;
+    }
+    img {
+      margin-left: -1em;
+      width: 824px;
+      height: 467px;
+      object-fit: cover;
+    }
     text-align: center;
     &_pays {
       font-weight: bold;
@@ -32,10 +55,31 @@ export default {
     &_date {
       font-style: italic;
     }
-    &:hover {
-        transition: 400ms;
-      transform: scale(1.02);
+    &_infos {
+      &_sub {
+        margin-top: -2em;
+      }
+    }
+  }
+}
+@media all and (max-width: 1250px) {
+  .card {
+    &_core {
+      img {
+        width: 100%;
+      }
+    }
+  }
+}
+
+@media all and (max-width: 765px) {
+  .card {
+    &_core {
+      img {
+        height: 20em;
+      }
     }
   }
 }
 </style>
+524

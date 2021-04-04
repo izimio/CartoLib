@@ -68,8 +68,12 @@
         </div>
       </div>
     </div>
-    <article v-if="allCartes[0]" class="all">
-      <div v-for="(cartes, index) in allCartes" :key="index">
+    <article v-if="allCartes[0]" class="allCarte">
+      <div
+        v-for="(cartes, index) in allCartes"
+        :key="index"
+        class="allCarte_each"
+      >
         <Carte
           v-if="
             (cartes.type == type || type == `Tout`) &&
@@ -230,6 +234,18 @@ h1 {
   transform: scale(2);
   top: 20px;
   left: 20px;
+}
+
+.allCarte {
+  margin-top: 3em;
+  &_each {
+    margin: 0em 5em 10em 5em;
+    transition: 400ms;
+          box-shadow: 0rem 0.5rem 2rem 0.1rem lighten(black, 60%);
+    &:hover {
+      transform: scale(1.02);
+    }
+  }
 }
 .all_upper {
   margin-top: 0;

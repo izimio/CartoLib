@@ -1,8 +1,8 @@
 <template>
-  <main class="all">
+  <main class="all_add">
     <article>
-      <div>
-        <h1>A quoi donc pensez vous ?</h1>
+      <div class="all_add_upper">
+        <h1>Ajouter une carte</h1>
       </div>
       <form action="" method="post" autocomplete="on">
         <div>
