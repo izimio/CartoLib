@@ -8,7 +8,8 @@
         <h3>{{ name }}</h3>
         <div class="card_core_infos_sub">
           <span class="card_core_pays">{{ pays }} | </span>
-          <span class="card_core_commune">{{ commune }} | </span>
+          <span class="card_core_commune"> [ {{ departement }} / </span>
+          <span class="card_core_commune">{{ commune }} ] | </span>
           <span v-if="year != 'null'" class="card_core_date">{{ year }} </span>
           <span v-else class="card_core_date"> date inconnue</span>
         </div>
@@ -21,7 +22,7 @@
 <script>
 export default {
   name: "Posts",
-  props: ["name", "media", "year", "commune", "pays", "updatedAt", "num"],
+  props: ["name", "media", "year", "commune", "pays", "departement", "updatedAt", "num"],
 };
 </script>
 
@@ -37,7 +38,6 @@ export default {
     font-family: "Indie Flower";
   }
   &_core {
-    box-shadow: 0rem 0.5rem 2rem 0.1rem lighten(black, 60%);
     padding: 1em;
     &_img {
       width: 100%;

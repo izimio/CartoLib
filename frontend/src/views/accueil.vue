@@ -24,6 +24,7 @@
           :pays="cartes.pays"
           :createdAt="cartes.createdAt"
           :updatedAt="cartes.updatedAt"
+          :departement="cartes.departement"
           :num="0"
         />
       </div>
@@ -74,7 +75,7 @@ export default {
           this.error = "Oops, une erreur est survenu";
         } else {
           this.allCartes = arr.carte;
-          console.log("aa");
+          console.log(this.allCartes);
         }
       })
       .catch((error) => {

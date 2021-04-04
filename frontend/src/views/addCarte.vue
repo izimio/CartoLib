@@ -1,69 +1,66 @@
 <template>
   <main class="all_add">
-    <article>
-      <div class="all_add_upper">
-        <h1>Ajouter une carte</h1>
+    <div class="all_add_upper">
+      <i class="gg-arrow-left-r" @click="backward"></i>
+      <h1>Ajouter une carte</h1>
+    </div>
+    <div>
+      <div class="form_input_name">
+        <label for="titre"> Nom </label>
+        <input type="text" v-model="name" required maxlength="50" />
       </div>
-      <form action="" method="post" autocomplete="on">
-        <div>
-          <div>
-            <label for="titre"> Nom </label>
-            <input type="text" v-model="name" required maxlength="50" />
-          </div>
-        </div>
-        <div>
-          <div>
-            <input type="file" @change="onFileChange" name="img" id="file" />
-            <label for="file">Selectionner un média...</label>
-          </div>
-          <div>
-            <img v-if="media" :src="media" />
-          </div>
-          <div v-if="media">
-            <span @click="media = null"> Supprimer le media </span>
-          </div>
-        </div>
-        <div>
-          <div>
+      <div class="form_input_lower">
+        <div class="form_input_location">
+          <div class="form_input_location_each">
             <label for="pays"> Pays </label>
             <input type="text" v-model="pays" required maxlength="50" />
           </div>
+          <div class="form_input_location_each">
+            <label for="departement"> Départmeent </label>
+            <input type="text" v-model="departement" />
+          </div>
+          <div class="form_input_location_each">
+            <label for="commune"> Commune </label>
+            <input type="text" v-model="commune" required maxlength="50" />
+          </div>
+          <div class="form_input_location_each">
+            <label for="year"> Année </label>
+            <input type="text" v-model="year" />
+          </div>
+        </div>
+        <div class="form_input_rightside">
           <div>
+            <label for="titre"> type </label>
+            <select v-model="type">
+              <option>CPA</option>
+              <option>CPSM</option>
+              <option>CPM</option>
+            </select>
+          </div>
+          <div class="form_input_media">
             <div>
-              <label for="commune"> Commune </label>
-              <input type="text" v-model="commune" required maxlength="50" />
-            </div>
-             <div>
-              <label for="year"> Année </label>
-              <input type="text" v-model="year"  />
+              <input type="file" @change="onFileChange" name="img" id="file" />
+              <label for="file">Selectionner un média...</label>
             </div>
             <div>
-              <div>
-                <label for="titre"> type </label>
-                <select v-model="type">
-                  <option>CPA</option>
-                  <option>CPSM</option>
-                  <option>CPM</option>
-                </select>
-              </div>
+              <img v-if="media" :src="media" />
+            </div>
+            <div v-if="media">
+              <span @click="media = null"> Supprimer le media </span>
             </div>
           </div>
         </div>
         <p>{{ error }}</p>
-        <p>{{ type }}</p>
         <div>
           <div v-if="name.length >= 1" @click="createCarte">
-            <p>Poster</p>
+            <button>Créer</button>
           </div>
           <div v-else>
-            <p>Poster</p>
-          </div>
-          <div>
-            <p @click="backward">Annuler</p>
+            <button disabled>Créer</button>
           </div>
         </div>
-      </form>
-    </article>
+      </div>
+    </div>
   </main>
 </template>
 
@@ -80,6 +77,7 @@ export default {
       commune: "",
       year: null,
       error: "",
+      departement: "",
     };
   },
   created() {
@@ -111,6 +109,7 @@ export default {
       formData.append("commune", this.commune);
       formData.append("type", this.type);
       formData.append("year", this.year);
+      formData.append("departement", this.departement);
       fetch("http://localhost:5000/api/cartes/", {
         method: "POST",
         body: formData,
@@ -135,8 +134,65 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="scss" module>
-.all {
+<style lang="scss">
+$orange: darken(orange, 5);
+
+.all_add {
+  &_upper {
+    padding-bottom: 0.5em;
+    font-size: 1.5em;
+    background-color: lighten($orange, 5);
+    h1 {
+      font-family: "Indie Flower";
+      text-align: center;
+      margin-top: 0em;
+    }
+    .gg-arrow-left-r {
+      &:hover {
+        cursor: pointer;
+        animation: turn 800ms infinite;
+      }
+      transform: scale(2);
+      top: 20px;
+      left: 20px;
+    }
+  }
+}
+input {
+  height: 2em;
   text-align: center;
+  border-radius: 5px;
+  border: $orange 2px solid;
+  &:focus {
+    background: lighten($orange, 30);
+  }
+}
+input[type="file"] {
+  border: none;
+}
+
+.form {
+  &_input_name {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    margin: 0em 20em 3em 20em;
+  }
+  &_input_lower {
+    display: flex;
+    flex-direction: column;
+  }
+  &_input_location {
+    display: flex;
+    justify-content: center;
+    &_each {
+      width: 20%;
+      display: flex;
+      flex-direction: column;
+      margin-right: 2em;
+      margin-left: 1em;
+    }
+    text-align: center;
+  }
 }
 </style>

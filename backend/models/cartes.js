@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false,
         },
         year: {
-            type: DataTypes.STRING,
+            type: DataTypes.INTEGER,
             allowNull: false,
         },
         type: {
@@ -20,6 +20,10 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false,
         },
         commune: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        departement: {
             type: DataTypes.STRING,
             allowNull: false,
         },

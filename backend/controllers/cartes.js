@@ -10,7 +10,7 @@ const {
 
 
 exports.createCarte = (req, res, next) => {
-     if (!req.file || !req.body.name || !req.body.type || !req.body.commune || !req.body.pays) { // checking fi the new post is long enought
+     if (!req.file || !req.body.name || !req.body.type || !req.body.commune || !req.body.pays || !req.body.departement) { // checking fi the new post is long enought
           return res.status(400).json({
                error: 'Champs  manquant ou erroné'
           })
@@ -22,7 +22,8 @@ exports.createCarte = (req, res, next) => {
                year: req.body.year ? req.body.year : -1,
                type: req.body.type,
                commune: req.body.commune,
-               pays: req.body.pays
+               pays: req.body.pays,
+               departement: req.body.departement
           })
           .then(post => {
                res.status(201).json({
@@ -36,7 +37,7 @@ exports.createCarte = (req, res, next) => {
 
 exports.getAllCartes = (req, res, next) => {
      models.Cartes.findAll({ // getting all the post and order them by update
-               attributes: ['id', 'name', 'year', 'media', 'commune','pays','type', 'updatedAt', 'createdAt'],
+               attributes: ['id', 'name', 'year', 'media', 'commune','pays','type', 'departement', 'updatedAt', 'createdAt'],
                order: [
                     ['createdAt', 'DESC']
                ],
@@ -61,7 +62,7 @@ exports.getAllCartes = (req, res, next) => {
 
 exports.getOneCarte = (req, res, next) => {
      models.Cartes.findOne({ // getting one post linked with the right Id
-          attributes: ['id', 'name', 'year', 'media', 'commune','pays','type', 'updatedAt', 'createdAt'],
+          attributes: ['id', 'name', 'year', 'media', 'commune','pays','type', 'departement', 'updatedAt', 'createdAt'],
                where: {
                     id: req.params.id
                },
@@ -84,7 +85,7 @@ exports.getOneCarte = (req, res, next) => {
 
 exports.deleteCarte = (req, res, next) => {
      models.Cartes.findOne({ // find the post related to the req.params.id
-          attributes: ['id', 'name', 'body', 'year', 'media', 'month', 'updatedAt'],
+          attributes: ['id', 'name', 'year', 'media', 'commune','pays','type', 'departement', 'updatedAt', 'createdAt'],
                where: {
                     id: req.params.id
                }

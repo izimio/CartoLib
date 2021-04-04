@@ -1,15 +1,28 @@
 <template>
-    <router-view/>
+  <router-view />
 </template>
 
 <script>
-export default {
-  
-}
+export default {};
 </script>
 <style lang="scss">
-@import url('https://css.gg/arrow-left-r.css');
-html, body{
+@keyframes turn {
+  0% {
+    transform: scale(2);
+    left: 20px;
+  }
+  50% {
+    transform: scale(2);
+    left: 15px;
+  }
+  100% {
+    transform: scale(2);
+    left: 20px;
+  }
+}
+@import url("https://css.gg/arrow-left-r.css");
+html,
+body {
   margin: 0;
   padding: 0;
   overflow-x: hidden;
@@ -34,7 +47,7 @@ html, body{
     }
   }
 }
-a{
+a {
   color: black;
 }
 </style>

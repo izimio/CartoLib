@@ -39,10 +39,19 @@
           <div class="form_lower_select">
             <div class="form_input form_lower_select_each">
               <label for="">Pays</label>
-              <select name="" id="" v-model="pays" @change="defineCommune()">
+              <select name="" id="" v-model="pays" @change="defineDepartement()">
                 <option>Tout</option>
                 <option v-for="(pays, index) in allPays" :key="index">
                   {{ pays }}
+                </option>
+              </select>
+            </div>
+            <div class="form_input form_lower_select_each">
+              <label for="">Département</label>
+              <select name="" id="" v-model="departement" @change="defineCommune()">
+                <option>Tout</option>
+                <option v-for="(departement, index) in allDepartement" :key="index">
+                  {{ departement }}
                 </option>
               </select>
             </div>
@@ -90,6 +99,7 @@
           :pays="cartes.pays"
           :createdAt="cartes.createdAt"
           :updatedAt="cartes.updatedAt"
+          :departement="cartes.departement"
           :num="0"
         />
       </div>
@@ -112,6 +122,7 @@ export default {
     return {
       allCartes: {},
       allCommunes: [],
+      allDepartement: [],
       allPays: [],
       error: "",
       minY: 1800,
@@ -120,6 +131,7 @@ export default {
       pays: "Tout",
       type: "Tout",
       commune: "Tout",
+      departement: "Tout",
       unknownDate: true,
     };
   },
@@ -154,7 +166,10 @@ export default {
       this.maxY = parseInt(this.maxY);
     },
     defineCommune() {
-      if (this.pays == "Tout") this.commune = "Tout";
+      if (this.departement == "Tout") 
+      {
+        this.commune = "Tout";
+      }
       this.allCommunes = [];
       let i;
       let j;
@@ -169,8 +184,29 @@ export default {
           while (this.allCommunes[++j]) {
             if (this.allCommunes[j] == this.allCartes[i].commune) trigger++;
           }
-          if (trigger == 0 && this.allCartes[i].pays == this.pays)
+          if (trigger == 0 && this.allCartes[i].departement == this.departement)
             this.allCommunes.push(this.allCartes[i].commune);
+        }
+      }
+    },
+    defineDepartement() {
+      if (this.pays == "Tout") this.departement = "Tout";
+      this.allDepartement = [];
+      let i;
+      let j;
+      let t;
+      let trigger;
+      t = -1;
+      i = -1;
+      while (++t < this.allCartes.length) {
+        while (this.allCartes[++i]) {
+          j = -1;
+          trigger = 0;
+          while (this.allDepartement[++j]) {
+            if (this.allDepartement[j] == this.allCartes[i].departement) trigger++;
+          }
+          if (trigger == 0 && this.allCartes[i].pays == this.pays)
+            this.allDepartement.push(this.allCartes[i].departement);
         }
       }
     },
@@ -230,6 +266,7 @@ h1 {
 .gg-arrow-left-r {
   &:hover {
     cursor: pointer;
+    animation: turn 800ms infinite;
   }
   transform: scale(2);
   top: 20px;
@@ -241,7 +278,7 @@ h1 {
   &_each {
     margin: 0em 5em 10em 5em;
     transition: 400ms;
-          box-shadow: 0rem 0.5rem 2rem 0.1rem lighten(black, 60%);
+    box-shadow: 0rem 0.5rem 2rem 0.1rem lighten(black, 60%);
     &:hover {
       transform: scale(1.02);
     }
@@ -300,6 +337,7 @@ h1 {
       margin-top: -2em;
       width: 60%;
       display: flex;
+      flex-wrap: wrap;
       align-items: center;
       justify-content: space-evenly;
       &_each {
