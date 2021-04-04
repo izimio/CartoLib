@@ -3,6 +3,7 @@
     <div>
       <h3> {{name}} </h3>
       <img :src="media" alt="media">
+      <p> {{ year }} </p>
     </div>
   </article>
 

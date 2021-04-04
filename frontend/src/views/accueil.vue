@@ -5,13 +5,17 @@
       <router-link to="/add">
         <button>ICI</button>
       </router-link>
+      <router-link to="/search">
+        <button>Filtrer</button>
+      </router-link>
     </div>
-    <article v-if="allCartes[0] || error[1]" class="all">
+    <article v-if="allCartes[0]">
         <Carte
           v-for="(cartes, index) in allCartes"
           :key="index"
           :name="cartes.name"
           :media="cartes.media"
+          :year="cartes.year"
           :createdAt="cartes.createdAt"
           :updatedAt="cartes.updatedAt"
           :num="0"
@@ -40,6 +44,7 @@ export default {
   methods: {
     login() {
       if (this.password == this.key) {
+        console.log("aa")
         this.$router.push({ path: "/accueil" });
       }
     },
@@ -73,8 +78,4 @@ export default {
 </script>
 
 <style lang="scss">
-.all {
-  display: flex;
-  justify-content: space-evenly;
-}
 </style>
