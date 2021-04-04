@@ -1,5 +1,5 @@
 <template>
-  <main>
+  <main class="all">
     <article>
       <div>
         <h1>A quoi donc pensez vous ?</h1>
@@ -135,8 +135,8 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="scss">
-main {
+<style lang="scss" module>
+.all {
   text-align: center;
 }
 </style>

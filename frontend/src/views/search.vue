@@ -1,13 +1,12 @@
 <template>
-  <div class="home">
+  <main class="all">
     <router-link to="/accueil"> partir</router-link>
-    <p>{{ allPays }}</p>
-    <div>
+    <div class="form">
       <h1>Filtrer</h1>
       <label for="">date min</label>
-      <input type="text" v-model="minY" @change="parseInt" />
+      <input type="text" v-model="minY" @input="ft_parseInt()" />
       <label for="">date max</label>
-      <input type="text" v-model="maxY" @change="parseInt" />
+      <input type="text" v-model="maxY" @input="ft_parseInt()" />
       <label for="">afficher les dates inconnues</label>
       <input type="checkbox" v-model="unknownDate" />
       <label for="">rechercehr avec un nom</label>
@@ -40,7 +39,9 @@
             (cartes.type == type || type == `Tout`) &&
             ((cartes.year >= minY && cartes.year <= maxY) ||
               (unknownDate && cartes.year == 'null')) &&
-            (cartes.pays == pays || pays == `Tout`)
+            (cartes.pays == pays || pays == `Tout`) &&
+            (cartes.commune == commune || commune == `Tout`) &&
+            ft_strstr(cartes.name, nameToSearch) == 1
           "
           :name="cartes.name"
           :media="cartes.media"
@@ -54,7 +55,7 @@
     <article v-else>
       <p>{{ error }}</p>
     </article>
-  </div>
+  </main>
 </template>
 
 <script>
@@ -71,8 +72,8 @@ export default {
       allCommunes: [],
       allPays: [],
       error: "",
-      minY: 0,
-      maxY: 20,
+      minY: 1800,
+      maxY: 2020,
       nameToSearch: "",
       pays: "Tout",
       type: "Tout",
@@ -81,28 +82,36 @@ export default {
     };
   },
   methods: {
-    login() {
-      if (this.password == this.key) {
-        this.$router.push({ path: "/accueil" });
-      }
-    },
     ft_strstr(str, to_find) {
       let i;
       let b;
 
       i = 0;
       b = 0;
-      if (to_find[0] == "\0") return 1;
-      while (str[i] != "\0") {
-        while (str[i + b] == to_find[b] && str[i + b] != "\0") b++;
-        if (to_find[b] == "\0") return 1;
+      if (!to_find[0])
+      {
+        return 1;
+      }
+      while (str[i]) {
+        while (str[i + b] == to_find[b] && str[i + b]) {
+          b++;
+        }
+        if (b == to_find.length) {
+          return 1;
+        }
         i++;
         b = 0;
       }
       return 0;
     },
+    ft_parseInt() {
+      console.log("WESH")
+      this.minY = parseInt(this.minY);
+      this.maxY = parseInt(this.maxY);
+    },
     defineCommune() {
-      console.log("aaa")
+      if (this.pays == "Tout") this.commune = "Tout";
+      this.allCommunes = [];
       let i;
       let j;
       let t;
@@ -116,7 +125,8 @@ export default {
           while (this.allCommunes[++j]) {
             if (this.allCommunes[j] == this.allCartes[i].commune) trigger++;
           }
-          if (trigger == 0 && this.allCartes[i].commune == this.pays) this.allCommunes.push(this.allCartes[i].commune);
+          if (trigger == 0 && this.allCartes[i].pays == this.pays)
+            this.allCommunes.push(this.allCartes[i].commune);
         }
       }
     },
@@ -139,7 +149,6 @@ export default {
           this.error = "Oops, une erreur est survenu";
         } else {
           this.allCartes = arr.carte;
-          console.log(this.allCartes);
           // creating the tab
           let i;
           let j;
@@ -167,5 +176,9 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" module>
+.form{
+  background: red;
+  border: 5px solid red;
+}
 </style>
