@@ -16,7 +16,7 @@
         class="allCartebis_eachbis"
       >
         <Carte
-          v-if="index < 4"
+          v-if="index < 20"
           :name="cartes.name"
           :media="cartes.media"
           :year="cartes.year"
@@ -115,16 +115,9 @@ $orange: darken(orange, 5);
 .allCartebis {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-evenly;
+  justify-content: center;
   &_eachbis {
     overflow-x: hidden;
-    padding: 0.5em;
-    transform: scale(0.7);
-    width: 48%;
-    &:hover {
-      transition: 400ms;
-      transform: scale(0.75);
-    }
   }
 }
 

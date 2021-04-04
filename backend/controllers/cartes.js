@@ -39,7 +39,7 @@ exports.getAllCartes = (req, res, next) => {
      models.Cartes.findAll({ // getting all the post and order them by update
                attributes: ['id', 'name', 'year', 'media', 'commune','pays','type', 'departement', 'updatedAt', 'createdAt'],
                order: [
-                    ['createdAt', 'DESC']
+                    ['name']
                ],
           })
           .then(carte => {

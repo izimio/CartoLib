@@ -30,11 +30,12 @@ export default {
 .card {
   &:hover{
     cursor: pointer;
+    opacity: 0.8;
   }
   padding: 0.5em;
   h3 {
-    font-size: 2em;
-    margin-top: 0.2em;
+    margin-top: 0;
+    margin-bottom: 1.5em;
     font-family: "Indie Flower";
   }
   &_core {
@@ -43,8 +44,7 @@ export default {
       width: 100%;
     }
     img {
-      margin-left: -1em;
-      object-fit: cover;
+      width: 300px;
     }
     text-align: center;
     &_pays {
@@ -80,4 +80,3 @@ export default {
   }
 }
 </style>
-524

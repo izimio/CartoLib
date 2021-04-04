@@ -76,22 +76,15 @@
           </div>
         </div>
       </div>
+      <button @click="FilterCartes()">RECHERCHER</button>
     </div>
-    <article v-if="allCartes[0]" class="allCarte">
+    <article v-if="allCartesFiltered[0]" class="allCarte">
       <div
-        v-for="(cartes, index) in allCartes"
+        v-for="(cartes, index) in allCartesFiltered"
         :key="index"
         class="allCarte_each"
       >
         <Carte
-          v-if="
-            (cartes.type == type || type == `Tout`) &&
-            ((cartes.year >= minY && cartes.year <= maxY) ||
-              (unknownDate && cartes.year == 'null')) &&
-            (cartes.pays == pays || pays == `Tout`) &&
-            (cartes.commune == commune || commune == `Tout`) &&
-            ft_strstr(cartes.name, nameToSearch) == 1
-          "
           :name="cartes.name"
           :media="cartes.media"
           :year="cartes.year"
@@ -121,6 +114,7 @@ export default {
   data() {
     return {
       allCartes: {},
+      allCartesFiltered: [],
       allCommunes: [],
       allDepartement: [],
       allPays: [],
@@ -159,6 +153,25 @@ export default {
         b = 0;
       }
       return 0;
+    },
+    FilterCartes(){
+      this.allCartesFiltered = [];
+      let i;
+      i = -1;
+      while(++i < this.allCartes.length)
+      {
+        if((this.allCartes[i].type == this.type || this.type == `Tout`) &&
+            ((this.allCartes[i].year >= this.minY && this.allCartes[i].year <= this.maxY) ||
+              (this.unknownDate && this.allCartes[i].year == 'null')) &&
+            (this.allCartes[i].pays == this.pays || this.pays == `Tout`) &&
+            (this.allCartes[i].commune == this.commune || this.commune == `Tout`) &&
+            (this.allCartes[i].departement == this.departement || this.departement == `Tout`) &&
+            this.ft_strstr(this.allCartes[i].name, this.nameToSearch) == 1)
+            {
+              this.allCartesFiltered.push(this.allCartes[i]);
+            }
+      }
+      console.log(this.allCartesFiltered)
     },
     ft_parseInt() {
       console.log("WESH");
@@ -279,8 +292,10 @@ h1 {
 
 .allCarte {
   margin-top: 3em;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
   &_each {
-    margin: 0em 5em 10em 5em;
     transition: 400ms;
     box-shadow: 0rem 0.5rem 2rem 0.1rem lighten(black, 60%);
     &:hover {
