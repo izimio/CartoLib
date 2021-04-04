@@ -16,6 +16,8 @@
           :name="cartes.name"
           :media="cartes.media"
           :year="cartes.year"
+          :pays="cartes.pays"
+          :commune="cartes.commune"
           :createdAt="cartes.createdAt"
           :updatedAt="cartes.updatedAt"
           :num="0"

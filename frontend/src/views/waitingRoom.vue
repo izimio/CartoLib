@@ -2,7 +2,7 @@
   <div class="home">
       <p> {{ key }}a  </p>
     <form action="#">
-      <input type="text" v-model="password" @keyup.enter="login"/>
+      <input type="text" v-model="password" @keyup.enter="login()"/>
     </form>
     <button @click="login">Connexion</button>
   </div>

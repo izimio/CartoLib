@@ -1,7 +1,7 @@
 <template>
   <main class="all">
     <div class="all_upper">
-      <router-link to="/accueil"> <i class="gg-arrow-left-r"></i></router-link>
+      <i class="gg-arrow-left-r" @click="backward"></i>
       <h1>Filtrer les cartes</h1>
       <div class="form">
         <div class="form_upper form_input">
@@ -13,7 +13,7 @@
           />
         </div>
         <div class="form_lower">
-          <div>
+          <div class="form_lower_date">
             <div>
               <div class="form_input">
                 <label for="">Date min</label>
@@ -120,6 +120,9 @@ export default {
     };
   },
   methods: {
+    backward() {
+      this.$router.push({ path: "/accueil" });
+    },
     ft_strstr(str, to_find) {
       let i;
       let b;
@@ -218,8 +221,18 @@ $orange: darken(orange, 5);
 
 h1 {
   text-align: center;
+  margin-top: 1.5em;
+}
+.gg-arrow-left-r {
+  &:hover {
+    cursor: pointer;
+  }
+  transform: scale(2);
+  top: 20px;
+  left: 20px;
 }
 .all_upper {
+  margin-top: 0;
   background-color: lighten($orange, 5);
 }
 .form {
@@ -274,7 +287,7 @@ h1 {
       align-items: center;
       justify-content: space-evenly;
       &_each {
-        justify-content: center;
+        justify-content: space-evenly;
         width: 150px;
         height: 75px;
         padding: 1em;
@@ -316,7 +329,7 @@ h1 {
     }
 
     .container input:checked ~ .checkmark {
-      background-color: $orange;
+      background-color: darken($orange, 10);
     }
 
     .checkmark:after {
@@ -338,6 +351,31 @@ h1 {
       -webkit-transform: rotate(45deg);
       -ms-transform: rotate(45deg);
       transform: rotate(45deg);
+    }
+  }
+  @media all and (max-width: 768px) {
+    .gg-arrow-left-r {
+      color: red;
+    }
+    .form {
+      &_lower {
+        flex-direction: column;
+        &_date {
+          margin: 0 5em 3em 5em;
+        }
+        &_select {
+          width: 100%;
+          &_each {
+            width: 20%;
+          }
+        }
+      }
+    }
+    &_input {
+      &_check {
+        display: flex;
+        justify-content: center;
+      }
     }
   }
 }
