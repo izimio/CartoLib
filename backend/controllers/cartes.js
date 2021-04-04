@@ -19,7 +19,7 @@ exports.createCarte = (req, res, next) => {
      models.Cartes.create({ // creating the post 
                name: req.body.name,
                media: media,
-               year: req.body.year ? req.body.year : "undefined",
+               year: req.body.year ? req.body.year : -1,
                type: req.body.type,
                commune: req.body.commune,
                pays: req.body.pays

@@ -5,15 +5,24 @@
     <div>
       <h1>Filtrer</h1>
       <label for="">date min</label>
-      <input type="text" v-model="minY" />
+      <input type="text" v-model="minY" @change="parseInt" />
       <label for="">date max</label>
-      <input type="text" v-model="maxY" />
+      <input type="text" v-model="maxY" @change="parseInt" />
+      <label for="">afficher les dates inconnues</label>
+      <input type="checkbox" v-model="unknownDate" />
       <label for="">rechercehr avec un nom</label>
       <input type="text" v-model="nameToSearch" />
       <label for="">pays</label>
-      <select name="" id="" v-model="pays">
+      <select name="" id="" v-model="pays" @change="defineCommune()">
+        <option>Tout</option>
         <option v-for="(pays, index) in allPays" :key="index">
           {{ pays }}
+        </option>
+      </select>
+      <select name="" id="" v-model="commune">
+        <option>Tout</option>
+        <option v-for="(commune, index) in allCommunes" :key="index">
+          {{ commune }}
         </option>
       </select>
       <label for="">type</label>
@@ -29,8 +38,9 @@
         <Carte
           v-if="
             (cartes.type == type || type == `Tout`) &&
-            (cartes.year >= minY &&
-            cartes.year <= maxY)
+            ((cartes.year >= minY && cartes.year <= maxY) ||
+              (unknownDate && cartes.year == 'null')) &&
+            (cartes.pays == pays || pays == `Tout`)
           "
           :name="cartes.name"
           :media="cartes.media"
@@ -58,19 +68,21 @@ export default {
   data() {
     return {
       allCartes: {},
+      allCommunes: [],
       allPays: [],
       error: "",
       minY: 0,
-      maxY: 2020,
+      maxY: 20,
       nameToSearch: "",
-      pays: "",
+      pays: "Tout",
       type: "Tout",
+      commune: "Tout",
+      unknownDate: true,
     };
   },
   methods: {
     login() {
       if (this.password == this.key) {
-        console.log("aa");
         this.$router.push({ path: "/accueil" });
       }
     },
@@ -88,6 +100,25 @@ export default {
         b = 0;
       }
       return 0;
+    },
+    defineCommune() {
+      console.log("aaa")
+      let i;
+      let j;
+      let t;
+      let trigger;
+      t = -1;
+      i = -1;
+      while (++t < this.allCartes.length) {
+        while (this.allCartes[++i]) {
+          j = -1;
+          trigger = 0;
+          while (this.allCommunes[++j]) {
+            if (this.allCommunes[j] == this.allCartes[i].commune) trigger++;
+          }
+          if (trigger == 0 && this.allCartes[i].commune == this.pays) this.allCommunes.push(this.allCartes[i].commune);
+        }
+      }
     },
   },
   created() {
@@ -108,7 +139,7 @@ export default {
           this.error = "Oops, une erreur est survenu";
         } else {
           this.allCartes = arr.carte;
-
+          console.log(this.allCartes);
           // creating the tab
           let i;
           let j;
@@ -126,6 +157,7 @@ export default {
               if (trigger == 0) this.allPays.push(this.allCartes[i].pays);
             }
           }
+          this.allPays.sort();
         }
       })
       .catch((error) => {

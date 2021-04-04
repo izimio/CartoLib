@@ -78,7 +78,7 @@ export default {
       media: "",
       pays: "",
       commune: "",
-      year: "",
+      year: null,
       error: "",
     };
   },
