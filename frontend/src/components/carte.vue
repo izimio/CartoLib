@@ -1,6 +1,6 @@
 <template>
   <article v-if="num == '0'" class="card">
-    <router-link :to="{ name: 'each', params: {id: id} }">
+    <router-link :to="{ name: 'each', params: { id: id } }">
       <div class="card_core">
         <div class="card_core_img">
           <img :src="media" alt="media" />
@@ -18,19 +18,29 @@
       </div>
     </router-link>
   </article>
-  <article v-else>
+  <article v-else class="card_v2">
     <div class="card_core_v2">
       <div class="card_core_img_v2">
         <a :href="media">
           <img :src="media" alt="media" />
-          <div class="card_core_img_v2_push_left">
-            <i class="gg-push-left"></i>
-          </div>
         </a>
+        <div
+          class="card_core_img_v2_push_left"
+          v-if="index - 1 >= 0"
+          @click="redirectBackward(index)"
+        >
+          <i class="gg-push-left"></i>
+        </div>
+        <div
+          class="card_core_img_v2_push_right"
+          v-if="index + 1 <= filteredTab.length - 1"
+          @click="redirectForward(index)"
+        >
+          <i class="gg-push-right"></i>
+        </div>
       </div>
       <div class="card_core_infos">
         <h3>{{ name }}</h3>
-           <p> {{ tabFiltered }}</p>
         <div class="card_core_infos_sub">
           <span class="card_core_pays">{{ pays }} | </span>
           <span class="card_core_commune"> {{ departement }} / </span>
@@ -56,9 +66,45 @@ export default {
     "updatedAt",
     "num",
     "index",
-    "tabFiltered",
+    "filteredTab",
+    "arnaque",
   ],
   created() {
+    console.log(this.arnaque);
+  },
+  methods: {
+    redirectBackward(index) {
+      let newId;
+      newId = this.filteredTab[index - 1].id;
+      if (this.arnaque == 0) {
+        this.$router.push({
+          name: "eachswap",
+          params: { id: newId },
+        });
+      }
+      if (this.arnaque == 1) {
+        this.$router.push({
+          name: "each",
+          params: { id: newId },
+        });
+      }
+    },
+    redirectForward(index) {
+      let newId;
+      newId = this.filteredTab[index + 1].id;
+      if (this.arnaque == 0) {
+        this.$router.push({
+          name: "eachswap",
+          params: { id: newId },
+        });
+      }
+      if (this.arnaque == 1) {
+        this.$router.push({
+          name: "each",
+          params: { id: newId },
+        });
+      }
+    },
   },
 };
 </script>
@@ -80,10 +126,10 @@ $orange: darken(orange, 5);
     margin-bottom: 1.5em;
     font-family: "Indie Flower";
   }
+  &_v2 {
+    margin-top: -2em;
+  }
   &_core {
-    &_v2 {
-      margin-top: -2em;
-    }
     position: relative;
     &:hover {
       cursor: pointer;
@@ -103,6 +149,7 @@ $orange: darken(orange, 5);
       &_v2 {
         position: relative;
         img {
+          margin-top: 1em;
           width: 70%;
           box-shadow: 0rem 0.5rem 2rem 0.1rem lighten(black, 60%);
         }
@@ -118,11 +165,32 @@ $orange: darken(orange, 5);
           top: 50%;
           left: 5%;
           transition: 400ms;
-          &:hover{
-            background: darken($orange,5);
+          &:hover {
+            cursor: pointer;
+            background: darken($orange, 5);
           }
-          i{
+          i {
             margin-left: 0.1em;
+          }
+        }
+        &_push_right {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          position: absolute;
+          width: 1.5em;
+          height: 1.5em;
+          border-radius: 50%;
+          background: $orange;
+          top: 50%;
+          right: 5%;
+          transition: 400ms;
+          &:hover {
+            cursor: pointer;
+            background: darken($orange, 5);
+          }
+          i {
+            margin-right: 0.1em;
           }
         }
       }

@@ -28,6 +28,7 @@
           :departement="cartes.departement"
           :num="0"
           :id="cartes.id"
+          :index="index"
         />
       </div>
     </article>

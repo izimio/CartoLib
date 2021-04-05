@@ -14,7 +14,7 @@
         :id="allCartes.id"
         :index="this.index"
         :filteredTab="this.filteredTab"
-        :arnaque="0"
+        :arnaque="1"
       />
     </div>
     <i class="gg-arrow-left-r abs" @click="backward"></i>
