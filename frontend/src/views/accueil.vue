@@ -118,6 +118,7 @@ $orange: darken(orange, 5);
   justify-content: center;
   &_eachbis {
     overflow-x: hidden;
+    width: 50%;
   }
 }
 

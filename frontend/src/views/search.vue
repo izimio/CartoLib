@@ -39,7 +39,12 @@
           <div class="form_lower_select">
             <div class="form_input form_lower_select_each">
               <label for="">Pays</label>
-              <select name="" id="" v-model="pays" @change="defineDepartement()">
+              <select
+                name=""
+                id=""
+                v-model="pays"
+                @change="defineDepartement()"
+              >
                 <option>Tout</option>
                 <option v-for="(pays, index) in allPays" :key="index">
                   {{ pays }}
@@ -48,9 +53,17 @@
             </div>
             <div class="form_input form_lower_select_each">
               <label for="">Département</label>
-              <select name="" id="" v-model="departement" @change="defineCommune()">
+              <select
+                name=""
+                id=""
+                v-model="departement"
+                @change="defineCommune()"
+              >
                 <option>Tout</option>
-                <option v-for="(departement, index) in allDepartement" :key="index">
+                <option
+                  v-for="(departement, index) in allDepartement"
+                  :key="index"
+                >
                   {{ departement }}
                 </option>
               </select>
@@ -154,24 +167,27 @@ export default {
       }
       return 0;
     },
-    FilterCartes(){
+    FilterCartes() {
       this.allCartesFiltered = [];
       let i;
       i = -1;
-      while(++i < this.allCartes.length)
-      {
-        if((this.allCartes[i].type == this.type || this.type == `Tout`) &&
-            ((this.allCartes[i].year >= this.minY && this.allCartes[i].year <= this.maxY) ||
-              (this.unknownDate && this.allCartes[i].year == 'null')) &&
-            (this.allCartes[i].pays == this.pays || this.pays == `Tout`) &&
-            (this.allCartes[i].commune == this.commune || this.commune == `Tout`) &&
-            (this.allCartes[i].departement == this.departement || this.departement == `Tout`) &&
-            this.ft_strstr(this.allCartes[i].name, this.nameToSearch) == 1)
-            {
-              this.allCartesFiltered.push(this.allCartes[i]);
-            }
+      while (++i < this.allCartes.length) {
+        if (
+          (this.allCartes[i].type == this.type || this.type == `Tout`) &&
+          ((this.allCartes[i].year >= this.minY &&
+            this.allCartes[i].year <= this.maxY) ||
+            (this.unknownDate && this.allCartes[i].year == "null")) &&
+          (this.allCartes[i].pays == this.pays || this.pays == `Tout`) &&
+          (this.allCartes[i].commune == this.commune ||
+            this.commune == `Tout`) &&
+          (this.allCartes[i].departement == this.departement ||
+            this.departement == `Tout`) &&
+          this.ft_strstr(this.allCartes[i].name, this.nameToSearch) == 1
+        ) {
+          this.allCartesFiltered.push(this.allCartes[i]);
+        }
       }
-      console.log(this.allCartesFiltered)
+      console.log(this.allCartesFiltered);
     },
     ft_parseInt() {
       console.log("WESH");
@@ -179,8 +195,7 @@ export default {
       this.maxY = parseInt(this.maxY);
     },
     defineCommune() {
-      if (this.departement == "Tout") 
-      {
+      if (this.departement == "Tout") {
         this.commune = "Tout";
       }
       this.allCommunes = [];
@@ -203,8 +218,7 @@ export default {
       }
     },
     defineDepartement() {
-      if (this.pays == "Tout") 
-      {
+      if (this.pays == "Tout") {
         this.departement = "Tout";
         this.commune = "Tout";
       }
@@ -220,7 +234,8 @@ export default {
           j = -1;
           trigger = 0;
           while (this.allDepartement[++j]) {
-            if (this.allDepartement[j] == this.allCartes[i].departement) trigger++;
+            if (this.allDepartement[j] == this.allCartes[i].departement)
+              trigger++;
           }
           if (trigger == 0 && this.allCartes[i].pays == this.pays)
             this.allDepartement.push(this.allCartes[i].departement);
@@ -295,9 +310,9 @@ h1 {
   margin-top: 3em;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-evenly;
+  justify-content: start;
   &_each {
-    transition: 400ms;
+    width: 25%;
     box-shadow: 0rem 0.5rem 2rem 0.1rem lighten(black, 60%);
     margin-bottom: 0.5em;
   }
@@ -425,29 +440,38 @@ h1 {
       transform: rotate(45deg);
     }
   }
-  @media all and (max-width: 768px) {
-    .gg-arrow-left-r {
-      color: red;
-    }
-    .form {
-      &_lower {
-        flex-direction: column;
-        &_date {
-          margin: 0 5em 3em 5em;
-        }
-        &_select {
-          width: 100%;
-          &_each {
-            width: 20%;
-          }
+}
+@media all and (max-width: 768px) {
+  .form {
+    &_lower {
+      flex-direction: column;
+      &_date {
+        margin: 0 5em 3em 5em;
+      }
+      &_select {
+        width: 100%;
+        &_each {
+          width: 40%;
         }
       }
     }
-    &_input {
-      &_check {
-        display: flex;
-        justify-content: center;
-      }
+  }
+  &_input {
+    &_check {
+      display: flex;
+      justify-content: center;
+    }
+  }
+  .allCarte {
+    padding-bottom: 5em;
+    margin-top: 3em;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: start;
+    &_each {
+      width: 50%;
+      box-shadow: 0rem 0.5rem 2rem 0.1rem lighten(black, 60%);
+      margin-bottom: 0.5em;
     }
   }
 }
