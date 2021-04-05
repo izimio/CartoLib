@@ -187,6 +187,10 @@ export default {
         console.log("aaa");
       }
     },
+    ft_capitalize(str){
+      str = str.toLowerCase();
+      return str.charAt(0).toUpperCase() + str.slice(1);
+    },
     createCarte: function () {
       let file = document.getElementById("file"); // creating a formdata file to send the file
       let formData = new FormData();
@@ -194,14 +198,14 @@ export default {
         formData.append("file", file.files[0]);
       }
       formData.append("name", this.name);
-      formData.append("pays", this.pays);
-      formData.append("commune", this.commune);
+      formData.append("pays", this.ft_capitalize(this.pays));
+      formData.append("commune", this.ft_capitalize(this.commune));
       formData.append("type", this.type);
       if (this.unknowYear) {
         this.year = -1;
       }
       formData.append("year", this.year);
-      formData.append("departement", this.departement);
+      formData.append("departement", this.ft_capitalize(this.departement));
       fetch("http://localhost:5000/api/cartes/", {
         method: "POST",
         body: formData,
@@ -228,13 +232,13 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss">
 $orange: darken(orange, 5);
-body{
+body {
   background: white;
 }
 
-.error{
-    color: red;
-    text-align: center;
+.error {
+  color: red;
+  text-align: center;
 }
 
 .choosed {
@@ -494,60 +498,60 @@ input[type="file"] {
 }
 
 @media all and (max-width: 768px) {
-.all_add_upper{
-  i{
-    margin-bottom: 2em;
-  }
-}
-.form {
-  &_input_name {
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    margin: 0em 2em 3em 2em;
-  }
-  &_input_lower {
-    display: flex;
-    flex-direction: column;
-  }
-  &_input_location {
-    flex-direction: column;
-    align-items: center;
-    &_each {
-      display: flex;
-      align-items: center;
-      input{
-        width: 25em
-      }
-      margin: 0em 0em 1.5em 0em;
-      &_y {
-        width: 8em;
-        margin-left: 1.5em;
-      }
-    }
-    text-align: center;
-  }
-  &_input_rightside {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    &_filtre {
-      text-align: center;
+  .all_add_upper {
+    i {
       margin-bottom: 2em;
+    }
+  }
+  .form {
+    &_input_name {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      margin: 0em 2em 3em 2em;
+    }
+    &_input_lower {
+      display: flex;
+      flex-direction: column;
+    }
+    &_input_location {
+      flex-direction: column;
+      align-items: center;
       &_each {
-        margin-left: 1em;
-        margin-right: 1em;
-        padding: 0.2em 0.5em 0.2em 0.5em;
-        border: 1px solid $orange;
-        border-radius: 5px;
-        &:hover {
-          background-color: lighten($orange, 30);
-          cursor: pointer;
+        display: flex;
+        align-items: center;
+        input {
+          width: 25em;
+        }
+        margin: 0em 0em 1.5em 0em;
+        &_y {
+          width: 8em;
+          margin-left: 1.5em;
+        }
+      }
+      text-align: center;
+    }
+    &_input_rightside {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      &_filtre {
+        text-align: center;
+        margin-bottom: 2em;
+        &_each {
+          margin-left: 1em;
+          margin-right: 1em;
+          padding: 0.2em 0.5em 0.2em 0.5em;
+          border: 1px solid $orange;
+          border-radius: 5px;
+          &:hover {
+            background-color: lighten($orange, 30);
+            cursor: pointer;
+          }
         }
       }
     }
   }
-}
 }
 </style>

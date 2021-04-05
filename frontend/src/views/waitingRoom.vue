@@ -45,7 +45,6 @@ body {
   font-family: "indie flower";
   font-size: 2em;
   text-align: center;
-  text-align: center;
   margin-top: 5%;
   h1 {
     font-size: 4em;

@@ -98,7 +98,7 @@ $orange: darken(orange, 5);
   font-size: 2em;
   text-align: center;
   margin-top: 5%;
-  background: lighten($orange, 10);
+  background: lighten($orange, 20);
   margin: 0em;
   h1 {
     font-size: 4em;

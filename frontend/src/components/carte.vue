@@ -141,8 +141,11 @@ $orange: darken(orange, 5);
     justify-content: center;
     flex-direction: column;
     &_img {
+      max-height: 250px;
       img {
-        width: 90%;
+        width: auto;
+        max-width: 90%;
+        height: 100%;
         overflow-x: hidden;
         margin-left: -1em;
       }
@@ -166,14 +169,18 @@ $orange: darken(orange, 5);
           align-items: center;
           justify-content: space-evenly;
           position: absolute;
-          left: 47%;
+          left: 45%;
           bottom: 40px;
           background: lighten($orange, 10);
         }
         position: relative;
         img {
           margin-top: 1em;
-          width: 70%;
+          width: auto;
+          max-width: 100%;
+          min-width: 20%;
+          max-height: 850px;
+          min-height: 850px;
           box-shadow: 0rem 0.5rem 2rem 0.1rem lighten(black, 60%);
         }
         &_push_left {

@@ -17,7 +17,6 @@
         class="allCartebis_eachbis"
       >
         <Carte
-          v-if="index < 10"
           :name="cartes.name"
           :media="cartes.media"
           :year="cartes.year"
@@ -32,8 +31,8 @@
         />
       </div>
     </article>
-    <article v-else>
-      <p>{{ error }}</p>
+    <article v-else class="nothing">
+      <p class="nothing_msg">Aucune carte à afficher</p>
     </article>
   </div>
 </template>
@@ -52,14 +51,7 @@ export default {
       error: "",
     };
   },
-  methods: {
-    login() {
-      if (this.password == this.key) {
-        console.log("aa");
-        this.$router.push({ path: "/accueil" });
-      }
-    },
-  },
+  methods: {},
   created() {
     const storage = localStorage.getItem("openner");
     if (!storage) {
@@ -78,14 +70,14 @@ export default {
           this.error = "Oops, une erreur est survenu";
         } else {
           let t;
-
           t = -1;
-          while(++t < 10)
-          {
+          while (arr.carte[++t] && t < 10) {
             this.allCartes.push(arr.carte[t]);
           }
           localStorage.setItem("filteredTab", JSON.stringify(this.allCartes));
+          console.log(this.allCartes)
         }
+
       })
       .catch((error) => {
         console.log(error);
@@ -97,31 +89,42 @@ export default {
 <style lang="scss">
 $orange: darken(orange, 5);
 
-body{
+body {
   background: white;
 }
 
-.subtitle{
-        font-size: 2em;
-      font-family: "Indie Flower";
-      text-align: center;
-      text-decoration: underline;
-      margin-top: 0.5em;
+.nothing {
+  justify-content: center;
+  display: flex;
+  p {
+    padding: 1em;
+    text-align: center;
+    border: 1px solid red;
+    width: 15em;
+  }
+}
+
+.subtitle {
+  font-size: 2em;
+  font-family: "Indie Flower";
+  text-align: center;
+  text-decoration: underline;
+  margin-top: 0.5em;
 }
 .all_hub {
   &_upper {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    button{
+    button {
       margin-right: 2em;
       margin-left: 2em;
       background-color: $orange;
       border: none;
       width: 100px;
       height: 75px;
-      &:hover{
-        background-color: darken($orange,10);
+      &:hover {
+        background-color: darken($orange, 10);
         cursor: pointer;
       }
     }
@@ -143,21 +146,21 @@ body{
   }
 }
 
-  @media all and (max-width: 768px) {
-.allCartebis {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-evenly;
-  &_eachbis {
-    overflow-x: hidden;
-    padding: 0.5em;
-    transform: scale(0.7);
-    width: 100%;
-    &:hover {
-      transition: 400ms;
-      transform: scale(0.75);
+@media all and (max-width: 768px) {
+  .allCartebis {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    &_eachbis {
+      overflow-x: hidden;
+      padding: 0.5em;
+      transform: scale(0.7);
+      width: 100%;
+      &:hover {
+        transition: 400ms;
+        transform: scale(0.75);
+      }
     }
   }
 }
-  }
 </style>

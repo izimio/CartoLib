@@ -218,19 +218,23 @@ export default {
         console.log("aaa");
       }
     },
+    ft_capitalize(str) {
+      str = str.toLowerCase();
+      return str.charAt(0).toUpperCase() + str.slice(1);
+    },
     createCarte: function () {
       let file = document.getElementById("file"); // creating a formdata file to send the file
       let formData = new FormData();
       formData.append("file", file.files[0]);
       formData.append("name", this.name);
-      formData.append("pays", this.pays);
-      formData.append("commune", this.commune);
+      formData.append("pays", this.ft_capitalize(this.pays));
+      formData.append("commune", this.ft_capitalize(this.commune));
       formData.append("type", this.type);
       if (this.unknowYear) {
         this.year = -1;
       }
       formData.append("year", this.year);
-      formData.append("departement", this.departement);
+      formData.append("departement", this.ft_capitalize(this.departement));
       fetch("http://localhost:5000/api/cartes/" + this.$route.params.id, {
         method: "PUT",
         body: formData,
