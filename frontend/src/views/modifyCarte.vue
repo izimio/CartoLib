@@ -121,7 +121,7 @@
             Supprimer le media
           </span>
         </div>
-        <p>{{ error }}</p>
+        <p class="error">{{ error }}</p>
         <div class="form_input_send">
           <div
             class="form_input_send_button_on"
@@ -136,10 +136,10 @@
             "
             @click="createCarte"
           >
-            <button>Créer</button>
+            <button>Modifier</button>
           </div>
           <div v-else class="form_input_send_button_off">
-            <button disabled>Créer</button>
+            <button disabled>Modifier</button>
           </div>
         </div>
       </div>
@@ -165,6 +165,7 @@ export default {
     };
   },
   created() {
+    console.log(this.$route.params.id);
     const storage = localStorage.getItem("openner");
     if (!storage) {
       return this.$router.push({ path: "/" });
@@ -188,6 +189,7 @@ export default {
           this.commune = arr.Carte.commune;
           if (arr.Carte.year == -1) {
             this.unknowYear = true;
+            this.year = "";
           } else {
             this.year = arr.Carte.year;
           }
@@ -207,7 +209,8 @@ export default {
     backward: function () {
       // go back to the home Page
       this.$router.push({
-        name: "accueil",
+        name: "eachswap",
+        params: { id: this.$route.params.id },
       });
     },
     modifyType() {
@@ -218,9 +221,7 @@ export default {
     createCarte: function () {
       let file = document.getElementById("file"); // creating a formdata file to send the file
       let formData = new FormData();
-      if (this.media != null) {
-        formData.append("file", file.files[0]);
-      }
+      formData.append("file", file.files[0]);
       formData.append("name", this.name);
       formData.append("pays", this.pays);
       formData.append("commune", this.commune);
@@ -230,8 +231,8 @@ export default {
       }
       formData.append("year", this.year);
       formData.append("departement", this.departement);
-      fetch("http://localhost:5000/api/cartes/", {
-        method: "POST",
+      fetch("http://localhost:5000/api/cartes/" + this.$route.params.id, {
+        method: "PUT",
         body: formData,
       })
         .then(async (result_) => {
@@ -239,7 +240,8 @@ export default {
           if (!user.error) {
             this.error = "";
             this.$router.push({
-              name: "accueil",
+              name: "eachswap",
+              params: { id: this.$route.params.id },
             });
           } else {
             this.error = user.error;
@@ -260,6 +262,10 @@ body {
   background: white;
 }
 
+.error {
+  color: red;
+  text-align: center;
+}
 .choosed {
   background-color: lighten($orange, 10);
   border: 1px solid $orange;

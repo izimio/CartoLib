@@ -37,7 +37,7 @@ exports.createCarte = (req, res, next) => {
 
 exports.getAllCartes = (req, res, next) => {
      models.Cartes.findAll({ // getting all the post and order them by update
-               attributes: ['id', 'name', 'year', 'media', 'commune','pays','type', 'departement', 'updatedAt', 'createdAt'],
+               attributes: ['id', 'name', 'year', 'media', 'commune', 'pays', 'type', 'departement', 'updatedAt', 'createdAt'],
                order: [
                     ['name']
                ],
@@ -62,7 +62,7 @@ exports.getAllCartes = (req, res, next) => {
 
 exports.getOneCarte = (req, res, next) => {
      models.Cartes.findOne({ // getting one post linked with the right Id
-          attributes: ['id', 'name', 'year', 'media', 'commune','pays','type', 'departement', 'updatedAt', 'createdAt'],
+               attributes: ['id', 'name', 'year', 'media', 'commune', 'pays', 'type', 'departement', 'updatedAt', 'createdAt'],
                where: {
                     id: req.params.id
                },
@@ -85,25 +85,69 @@ exports.getOneCarte = (req, res, next) => {
 
 exports.deleteCarte = (req, res, next) => {
      models.Cartes.findOne({ // find the post related to the req.params.id
-          attributes: ['id', 'name', 'year', 'media', 'commune','pays','type', 'departement', 'updatedAt', 'createdAt'],
+               attributes: ['id', 'name', 'year', 'media', 'commune', 'pays', 'type', 'departement', 'updatedAt', 'createdAt'],
                where: {
                     id: req.params.id
                }
           })
           .then(carte => {
-                    if (carte.media != null) {
-                         const filename = carte.media.split('/images/')[1]; // deleting the linked file inside our folder
-                         fs.unlink(`images/${filename}`, () => {})
-                    }
-                    return carte.destroy() // Destroying the post
-                         .then(() => res.status(200).json({
-                              message: 'Post supprimé !'
-                         }))
-                         .catch(error => {
-                              res.status(400).json({
-                                   error: 'Un problème est survenue lors de la suppression'
-                              })
-                         });
+               if (carte.media != null) {
+                    const filename = carte.media.split('/images/')[1]; // deleting the linked file inside our folder
+                    fs.unlink(`images/${filename}`, () => {})
+               }
+               return carte.destroy() // Destroying the post
+                    .then(() => res.status(200).json({
+                         message: 'Post supprimé !'
+                    }))
+                    .catch(error => {
+                         res.status(400).json({
+                              error: 'Un problème est survenue lors de la suppression'
+                         })
+                    });
+          })
+          .catch(error => {
+               res.status(404).json({
+                    error: 'Post non trouvé !'
+               })
+          });
+}
+
+exports.updateCarte = (req, res, next) => {
+
+     const media = (req.file ? `${req.protocol}://${req.get('host')}/images/${req.file.filename}` : null)
+
+     console.log(req.params.id)
+     if (!req.body.name || !req.body.type || !req.body.commune || !req.body.pays || !req.body.departement) { // checking fi the new post is long enought
+          return res.status(400).json({
+               error: 'Champs  manquant ou erroné'
+          })
+     }
+     models.Cartes.findOne({ // find the post related to the req.params.id
+               attributes: ['id', 'name', 'year', 'media', 'commune', 'pays', 'type', 'departement', 'updatedAt', 'createdAt'],
+               where: {
+                    id: req.params.id
+               }
+          })
+          .then(carte => {
+               if ((media != carte.media) && media != null ) {
+                    const filename = carte.media.split('/images/')[1]; // deleting the linked file
+                    fs.unlink(`images/${filename}`, () => {})
+               }
+               return carte.update({
+                         name: req.body.name,
+                         media: (req.file ? `${req.protocol}://${req.get('host')}/images/${req.file.filename}` : carte.media),
+                         year: req.body.year,
+                         type: req.body.type,
+                         commune: req.body.commune,
+                         pays: req.body.pays,
+                         departement: req.body.departement
+                    })
+                    .then(() => res.status(200).json({
+                         message: 'carte modifié !'
+                    }))
+                    .catch(error => res.status(400).json({
+                         error: 'Une erreur est survenue lors de la modification de la carte'
+                    }));
           })
           .catch(error => {
                res.status(404).json({

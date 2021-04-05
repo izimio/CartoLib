@@ -9,4 +9,5 @@ router.post('/',multer, CartesCtrl.createCarte);
 router.get('/', CartesCtrl.getAllCartes);
 router.get('/:id', CartesCtrl.getOneCarte)
 router.delete('/:id',multer, CartesCtrl.deleteCarte)
+router.put('/:id',multer, CartesCtrl.updateCarte)
 module.exports = router;

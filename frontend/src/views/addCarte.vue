@@ -121,7 +121,7 @@
             Supprimer le media
           </span>
         </div>
-        <p>{{ error }}</p>
+        <p class="error">{{ error }}</p>
         <div class="form_input_send">
           <div
             class="form_input_send_button_on"
@@ -230,6 +230,11 @@ export default {
 $orange: darken(orange, 5);
 body{
   background: white;
+}
+
+.error{
+    color: red;
+    text-align: center;
 }
 
 .choosed {
