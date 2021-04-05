@@ -27,6 +27,7 @@
           :updatedAt="cartes.updatedAt"
           :departement="cartes.departement"
           :num="0"
+          :id="cartes.id"
         />
       </div>
     </article>
@@ -46,7 +47,7 @@ export default {
   },
   data() {
     return {
-      allCartes: {},
+      allCartes: [],
       error: "",
     };
   },
@@ -75,8 +76,14 @@ export default {
         if (arr.error) {
           this.error = "Oops, une erreur est survenu";
         } else {
-          this.allCartes = arr.carte;
-          console.log(this.allCartes);
+          let t;
+
+          t = -1;
+          while(++t < 10)
+          {
+            this.allCartes.push(arr.carte[t]);
+          }
+          localStorage.setItem("filteredTab", JSON.stringify(this.allCartes));
         }
       })
       .catch((error) => {
@@ -88,6 +95,10 @@ export default {
 
 <style lang="scss">
 $orange: darken(orange, 5);
+
+body{
+  background: white;
+}
 
 .subtitle{
         font-size: 2em;

@@ -112,6 +112,8 @@
           :updatedAt="cartes.updatedAt"
           :departement="cartes.departement"
           :num="0"
+          :id="cartes.id"
+          :tabFiltered="allCartesFiltered"
         />
       </div>
     </article>
@@ -192,10 +194,9 @@ export default {
           this.allCartesFiltered.push(this.allCartes[i]);
         }
       }
-      console.log(this.allCartesFiltered);
+      localStorage.setItem("filteredTab", JSON.stringify(this.allCartesFiltered));
     },
     ft_parseInt() {
-      console.log("WESH");
       this.minY = parseInt(this.minY);
       this.maxY = parseInt(this.maxY);
     },
@@ -296,9 +297,14 @@ export default {
 <style lang="scss">
 $orange: darken(orange, 5);
 
+body {
+  background: white;
+  margin: 0em;
+}
 h1 {
   text-align: center;
-  margin-top: 1.5em;
+  font-size: 3em;
+  font-family: "indie flower";
 }
 .gg-arrow-left-r {
   &:hover {

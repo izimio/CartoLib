@@ -228,6 +228,9 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss">
 $orange: darken(orange, 5);
+body{
+  background: white;
+}
 
 .choosed {
   background-color: lighten($orange, 10);

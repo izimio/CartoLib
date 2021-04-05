@@ -22,6 +22,7 @@ export default {};
 }
 @import url("https://css.gg/arrow-left-r.css");
 @import url('https://css.gg/software-upload.css');
+@import url('https://css.gg/push-left.css');
 html,
 body {
   margin: 0;
