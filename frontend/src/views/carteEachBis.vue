@@ -15,7 +15,11 @@
         :index="this.index"
         :filteredTab="this.filteredTab"
         :arnaque="1"
-      />
+      >
+        <ButtonDelete> </ButtonDelete>
+
+        <ButtonUpdate> </ButtonUpdate>
+      </Carte>
     </div>
     <i class="gg-arrow-left-r abs" @click="backward"></i>
   </main>
@@ -25,11 +29,14 @@
 // @ is an alias to /src
 
 import Carte from "@/components/carte.vue";
-
+import ButtonUpdate from "@/components/buttonUpdate.vue";
+import ButtonDelete from "@/components/buttonDelete.vue";
 export default {
   name: "Home",
   components: {
-    Carte,
+      Carte,
+    ButtonDelete,
+    ButtonUpdate
   },
   data() {
     return {
@@ -55,9 +62,8 @@ export default {
     this.filteredTab = JSON.parse(storagebis);
 
     // FIND THE INDEX
-    while(this.filteredTab[this.index].id != this.$route.params.id)
-    {
-        this.index++;
+    while (this.filteredTab[this.index].id != this.$route.params.id) {
+      this.index++;
     }
     fetch("http://localhost:5000/api/cartes/" + this.$route.params.id, {
       method: "GET",
@@ -95,8 +101,8 @@ $orange: darken(orange, 5);
     font-size: 4em;
     margin-bottom: 0em;
   }
-  &_carte{
-      margin-top: 2em;
+  &_carte {
+    margin-top: 2em;
   }
 }
 .abs {

@@ -21,9 +21,7 @@
   <article v-else class="card_v2">
     <div class="card_core_v2">
       <div class="card_core_img_v2">
-        <a :href="media">
           <img :src="media" alt="media" />
-        </a>
         <div
           class="card_core_img_v2_push_left"
           v-if="index - 1 >= 0"
@@ -38,10 +36,13 @@
         >
           <i class="gg-push-right"></i>
         </div>
+        <div class="button">
+          <slot></slot>
+        </div>
       </div>
-      <div class="card_core_infos">
+      <div class="card_core_infos_v2">
         <h3>{{ name }}</h3>
-        <div class="card_core_infos_sub">
+        <div class="card_core_infos_v2_sub">
           <span class="card_core_pays">{{ pays }} | </span>
           <span class="card_core_commune"> {{ departement }} / </span>
           <span class="card_core_commune">{{ commune }} | </span>
@@ -147,6 +148,28 @@ $orange: darken(orange, 5);
       }
       width: 100%;
       &_v2 {
+        transition: 400ms;
+        &:hover {
+          .button {
+            height: 1.5em;
+            opacity: 0.7;
+          }
+        }
+        .button {
+          padding: 0em;
+          transition: 400ms;
+          border-radius: 15px;
+          opacity: 0;
+          width: 5em;
+          height: 0em;
+          display: flex;
+          align-items: center;
+          justify-content: space-evenly;
+          position: absolute;
+          left: 47%;
+          bottom: 40px;
+          background: lighten($orange, 10);
+        }
         position: relative;
         img {
           margin-top: 1em;
@@ -210,6 +233,15 @@ $orange: darken(orange, 5);
       align-items: center;
       justify-content: center;
       transition: 500ms;
+      &_v2 {
+        padding-bottom: 1em;
+        &_sub {
+          margin-top: -1em;
+        }
+        h3 {
+          margin-top: 0em;
+        }
+      }
       h3 {
         word-break: break-all;
         font-weight: bold;
