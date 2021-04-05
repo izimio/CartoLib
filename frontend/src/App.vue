@@ -21,6 +21,7 @@ export default {};
   }
 }
 @import url("https://css.gg/arrow-left-r.css");
+@import url('https://css.gg/software-upload.css');
 html,
 body {
   margin: 0;

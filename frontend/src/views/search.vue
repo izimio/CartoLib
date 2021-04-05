@@ -176,7 +176,7 @@ export default {
           (this.allCartes[i].type == this.type || this.type == `Tout`) &&
           ((this.allCartes[i].year >= this.minY &&
             this.allCartes[i].year <= this.maxY) ||
-            (this.unknownDate && this.allCartes[i].year == "null")) &&
+            (this.unknownDate && this.allCartes[i].year == -1)) &&
           (this.allCartes[i].pays == this.pays || this.pays == `Tout`) &&
           (this.allCartes[i].commune == this.commune ||
             this.commune == `Tout`) &&

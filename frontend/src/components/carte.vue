@@ -10,7 +10,7 @@
           <span class="card_core_pays">{{ pays }} | </span>
           <span class="card_core_commune"> {{ departement }} / </span>
           <span class="card_core_commune">{{ commune }} | </span>
-          <span v-if="year != 'null'" class="card_core_date">{{ year }} </span>
+          <span v-if="year != -1" class="card_core_date">{{ year }} </span>
           <span v-else class="card_core_date"> date inconnue</span>
         </div>
       </div>
@@ -43,6 +43,9 @@ export default {
   overflow-x: hidden;
   text-align: center;
   padding: 0.5em;
+  &:hover{
+    opacity: 0.9;
+  }
   h3 {
     margin-top: 0;
     margin-bottom: 1.5em;
@@ -79,7 +82,7 @@ export default {
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: start;
+      justify-content: center;
       transition: 500ms;
       h3 {
         word-break: break-all;
@@ -87,7 +90,7 @@ export default {
         margin-bottom: 0em;
         margin-left: 1.5em;
         margin-right: 1.5em;
-        line-height: 18px;
+        line-height: 20px;
       }
       span {
         margin-top: 1em;
