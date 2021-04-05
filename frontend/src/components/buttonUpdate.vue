@@ -10,14 +10,13 @@ export default {
   props: ["value"],
   data() {
     return {
-      id: null,
     };
   },
   created() {},
   methods: {
     update: function () {
       // if the user is updating a post
-      this.$router.push({ name: "PostUpdate", params: { id: this.id } });
+      this.$router.push({ name: "modification", params: { id: this.$route.params.id } });
     },
   },
 };
