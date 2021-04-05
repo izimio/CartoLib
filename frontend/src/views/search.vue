@@ -10,6 +10,7 @@
             class="form_input_nameToSearch"
             type="text"
             v-model="nameToSearch"
+            @keyup.enter="FilterCartes()"
           />
         </div>
         <div class="form_lower">
@@ -89,7 +90,11 @@
           </div>
         </div>
       </div>
-      <button @click="FilterCartes()">RECHERCHER</button>
+      <div class="form_lower_send">
+        <button @click="FilterCartes()" class="form_lower_send_button">
+          RECHERCHER
+        </button>
+      </div>
     </div>
     <article v-if="allCartesFiltered[0]" class="allCarte">
       <div
@@ -438,6 +443,29 @@ h1 {
       -webkit-transform: rotate(45deg);
       -ms-transform: rotate(45deg);
       transform: rotate(45deg);
+    }
+    &_send {
+      display: flex;
+      justify-content: center;
+      &_button {
+        border-radius: 5px;
+        font-weight: bold;
+        padding: 1em 2em 1em 2em;
+        margin-bottom: 1em;
+        background: $orange;
+        border: none;
+        button {
+          background: none;
+          border: none;
+          &:hover {
+            cursor: pointer;
+          }
+        }
+        &:hover {
+          cursor: pointer;
+          background: darken($orange, 10);
+        }
+      }
     }
   }
 }
