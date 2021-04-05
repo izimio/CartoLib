@@ -9,6 +9,7 @@
         <button>Filtrer</button>
       </router-link>
     </div>
+    <h2 class="subtitle">Les plus récentes</h2>
     <article v-if="allCartes[0]" class="allCartebis">
       <div
         v-for="(cartes, index) in allCartes"
@@ -16,7 +17,7 @@
         class="allCartebis_eachbis"
       >
         <Carte
-          v-if="index < 20"
+          v-if="index < 10"
           :name="cartes.name"
           :media="cartes.media"
           :year="cartes.year"
@@ -87,6 +88,14 @@ export default {
 
 <style lang="scss">
 $orange: darken(orange, 5);
+
+.subtitle{
+        font-size: 2em;
+      font-family: "Indie Flower";
+      text-align: center;
+      text-decoration: underline;
+      margin-top: 0.5em;
+}
 .all_hub {
   &_upper {
     display: flex;

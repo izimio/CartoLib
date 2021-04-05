@@ -49,26 +49,23 @@ export default {
     font-family: "Indie Flower";
   }
   &_core {
+    position: relative;
     &:hover {
       cursor: pointer;
-      .card_core_infos {
-        transition: 500ms;
-        height: 4em;
-        opacity: 0.8;
-      }
     }
-    position: relative;
     width: 100%;
     padding: 1em 1em 0em 1em;
     display: flex;
     justify-content: center;
+    flex-direction: column;
     &_img {
       width: 100%;
     }
     img {
       width: 90%;
+      overflow-x: hidden;
+      margin-left: -1em;
     }
-    text-align: center;
     &_pays {
       font-weight: bold;
     }
@@ -76,21 +73,24 @@ export default {
       font-style: italic;
     }
     &_infos {
-      opacity: 0;
-      height: 0em;
-      position: absolute;
+      height: 100%;
+      width: 100%;
       bottom: 0px;
       display: flex;
       flex-direction: column;
       align-items: center;
+      justify-content: start;
       transition: 500ms;
       h3 {
-        margin-bottom: 0em;
-        margin-right: 1em;
         word-break: break-all;
         font-weight: bold;
+        margin-bottom: 0em;
+        margin-left: 1.5em;
+        margin-right: 1.5em;
+        line-height: 18px;
       }
       span {
+        margin-top: 1em;
         font-size: 1em;
       }
     }

@@ -470,7 +470,6 @@ h1 {
     justify-content: start;
     &_each {
       width: 50%;
-      box-shadow: 0rem 0.5rem 2rem 0.1rem lighten(black, 60%);
       margin-bottom: 0.5em;
     }
   }
