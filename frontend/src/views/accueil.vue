@@ -9,6 +9,9 @@
         <button>Filtrer</button>
       </router-link>
     </div>
+    <div class="all_arbo">
+      <InfoArbo :arrAllInfos="allCartes" />
+    </div>
     <h2 class="subtitle">Les plus récentes</h2>
     <article v-if="allCartes[0]" class="allCartebis">
       <div
@@ -39,15 +42,22 @@
 
 <script>
 import Carte from "@/components/carte.vue";
+import InfoArbo from "@/components/infoArbo.vue";
 
 export default {
   name: "Home",
   components: {
     Carte,
+    InfoArbo,
   },
   data() {
     return {
       allCartes: [],
+      allPays: [],
+      allDepartement: [],
+      allCommunes: [],
+      allCount: [],
+      allCarteNotFiltered: [],
       error: "",
     };
   },
@@ -69,15 +79,97 @@ export default {
         if (arr.error) {
           this.error = "Oops, une erreur est survenu";
         } else {
-          let t;
-          t = -1;
-          while (arr.carte[++t] && t < 10) {
-            this.allCartes.push(arr.carte[t]);
+          let p;
+          p = -1;
+          while (arr.carte[++p] && p < 10) {
+            this.allCartes.push(arr.carte[p]);
           }
           localStorage.setItem("filteredTab", JSON.stringify(this.allCartes));
-          console.log(this.allCartes)
-        }
+          // DEFINE PAYS
+          let i;
+          let j;
+          let t;
+          let trigger;
+          t = -1;
+          i = -1;
+          while (++t < arr.carte.length) {
+            while (arr.carte[++i]) {
+              j = -1;
+              trigger = 0;
+              while (this.allPays[++j]) {
+                if (this.allPays[j] == arr.carte[i].pays) trigger++;
+              }
+              if (trigger == 0) this.allPays.push(arr.carte[i].pays);
+            }
+          }
+          this.allPays.sort();
 
+          // DEFINE DEPARTEMENT
+          let k;
+          i = -1;
+          k = -1;
+          t = -1;
+          while (this.allPays[++k]) {
+            let allDep = [];
+            t = -1;
+            while (++t < arr.carte.length) {
+              i = -1;
+              while (arr.carte[++i]) {
+                j = -1;
+                trigger = 0;
+                while (allDep[++j]) {
+                  if (allDep[j] == arr.carte[i].departement) trigger++;
+                }
+                if (trigger == 0 && arr.carte[i].pays == this.allPays[k])
+                  allDep.push(arr.carte[i].departement);
+              }
+            }
+            let tmp = {};
+            tmp = {
+              pays: this.allPays[k],
+              tab: allDep,
+            };
+            this.allDepartement.push(tmp);
+          }
+
+          // DEFINE COMMUNE
+          let o;
+
+          o = -1;
+          p = -1;
+          i = -1;
+          k = -1;
+          while (++k < this.allPays.length) {
+            o = -1;
+            while (this.allDepartement[k].tab[++o]) {
+              let allCom = [];
+              t = -1;
+              while (++t < arr.carte.length) {
+                i = -1;
+                while (arr.carte[++i]) {
+                  j = -1;
+                  trigger = 0;
+                  while (allCom[++j]) {
+                    if (allCom[j] == arr.carte[i].commune) trigger++;
+                  }
+                  if (
+                    trigger == 0 &&
+                    arr.carte[i].pays == this.allPays[k] &&
+                    arr.carte[i].departement == this.allDepartement[k].tab[o]
+                  )
+                    allCom.push(arr.carte[i].commune);
+                }
+              }
+              let tmp = {};
+              tmp = {
+                pays: this.allPays[k],
+                departement: this.allDepartement[k].tab[o],
+                tab: allCom,
+              };
+              this.allCommunes.push(tmp);
+            }
+          }
+        }
       })
       .catch((error) => {
         console.log(error);
@@ -140,9 +232,11 @@ body {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  margin-bottom: 4em;
   &_eachbis {
     overflow-x: hidden;
-    width: 50%;
+    width: 20%;
+    box-shadow: 0rem 0.5rem 2rem 0.1rem lighten(black, 60%);
   }
 }
 

@@ -55,7 +55,7 @@
 </template>
 <script>
 export default {
-  name: "Posts",
+  name: "Carte",
   props: [
     "id",
     "name",
@@ -71,7 +71,6 @@ export default {
     "arnaque",
   ],
   created() {
-    console.log(this.arnaque);
   },
   methods: {
     redirectBackward(index) {
@@ -145,7 +144,7 @@ $orange: darken(orange, 5);
       img {
         width: auto;
         max-width: 90%;
-        height: 100%;
+        height: 250px;
         overflow-x: hidden;
         margin-left: -1em;
       }
