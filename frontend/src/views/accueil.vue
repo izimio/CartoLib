@@ -9,7 +9,7 @@
         <button>Filtrer</button>
       </router-link>
     </div>
-    <div @click="showArbo++" class="all_hub_upper_chevron">
+    <div class="all_hub_upper_chevron">
       <div
         class="all_hub_upper_chevron_i"
         v-bind:class="{
@@ -17,7 +17,7 @@
           up: showArbo % 2 != 0,
         }"
       >
-        <i class="gg-chevron-down-o"></i>
+        <i class="gg-chevron-down-o" @click="showArbo++"></i>
       </div>
     </div>
     <div class="all_arbo" v-if="showArbo % 2 == 0">

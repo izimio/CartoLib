@@ -18,10 +18,26 @@
       >
         <ButtonDelete> </ButtonDelete>
 
-        <ButtonUpdate> </ButtonUpdate>
+        <ButtonUpdate></ButtonUpdate>
       </Carte>
     </div>
     <i class="gg-arrow-left-r abs" @click="backward"></i>
+    <div class="all_carousel">
+      <div
+        class="all_carousel_each"
+        v-for="(carousel, k) in tabCarousel"
+        :key="k"
+      >
+        <CarteCarousel
+          :name="carousel.name"
+          :media="carousel.media"
+          :id="carousel.id"
+          :tabFiltered="filteredTab"
+          :arnaque="1"
+          :currentId="$route.params.id"
+        />
+      </div>
+    </div>
   </main>
 </template>
 
@@ -29,19 +45,22 @@
 // @ is an alias to /src
 
 import Carte from "@/components/carte.vue";
+import CarteCarousel from "@/components/carteCarousel.vue";
 import ButtonUpdate from "@/components/buttonUpdate.vue";
 import ButtonDelete from "@/components/buttonDelete.vue";
 export default {
   name: "Home",
   components: {
-      Carte,
+    Carte,
+     CarteCarousel,
     ButtonDelete,
-    ButtonUpdate
+    ButtonUpdate,
   },
   data() {
     return {
       allCartes: {},
       filteredTab: {},
+      tabCarousel: [],
       index: 0,
     };
   },
@@ -60,11 +79,27 @@ export default {
     }
     const storagebis = localStorage.getItem("filteredTab");
     this.filteredTab = JSON.parse(storagebis);
-
     // FIND THE INDEX
     while (this.filteredTab[this.index].id != this.$route.params.id) {
       this.index++;
     }
+
+    // creating tab for the carousel
+    let i = 0;
+    this.tabCarousel.push(this.filteredTab[this.index]);
+    while (this.filteredTab[this.index - i] && ++i <= 3) {
+      if (this.filteredTab[this.index - i]) {
+        this.tabCarousel.unshift(this.filteredTab[this.index - i]);
+      }
+    }
+    i = 0;
+    while (this.filteredTab[this.index + i] && ++i <= 3) {
+      if (this.filteredTab[this.index + i]) {
+        this.tabCarousel.push(this.filteredTab[this.index + i]);
+      }
+    }
+    // tab for the carousel
+
     fetch("http://localhost:5000/api/cartes/" + this.$route.params.id, {
       method: "GET",
       headers: new Headers({
@@ -95,7 +130,7 @@ $orange: darken(orange, 5);
   font-size: 2em;
   text-align: center;
   margin-top: 5%;
-  background: lighten($orange, 10);
+  background: lighten($orange, 20);
   margin: 0em;
   h1 {
     font-size: 4em;
@@ -105,6 +140,15 @@ $orange: darken(orange, 5);
     margin-top: 2em;
   }
 }
+
+.all_carousel {
+  display: flex;
+  flex-wrap: wrap;
+  &_each {
+    width: 14%;
+  }
+}
+
 .abs {
   position: absolute;
 }

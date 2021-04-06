@@ -18,10 +18,45 @@
       </div>
     </router-link>
   </article>
-  <article v-else class="card_v2">
+  <article v-else-if="num == '1'" class="card_v2">
     <div class="card_core_v2">
       <div class="card_core_img_v2">
-          <img :src="media" alt="media" />
+        <img :src="media" alt="media" />
+        <div
+          class="card_core_img_v2_push_left"
+          v-if="index - 1 >= 0"
+          @click="redirectBackward(index)"
+        >
+          <i class="gg-push-left"></i>
+        </div>
+        <div
+          class="card_core_img_v2_push_right"
+          v-if="index + 1 <= filteredTab.length - 1"
+          @click="redirectForward(index)"
+        >
+          <i class="gg-push-right"></i>
+        </div>
+        <div class="button">
+          <slot></slot>
+        </div>
+      </div>
+      <div class="card_core_infos_v2">
+        <h3>{{ name }}</h3>
+        <div class="card_core_infos_v2_sub">
+          <span class="card_core_pays">{{ pays }} | </span>
+          <span class="card_core_commune"> {{ departement }} / </span>
+          <span class="card_core_commune">{{ commune }} | </span>
+          <span v-if="year != -1" class="card_core_date">{{ year }} </span>
+          <span v-else class="card_core_date"> date inconnue</span>
+        </div>
+      </div>
+    </div>
+  </article>
+  <article v-else class="card_v2">
+    <h1>BITE</h1>
+    <div class="card_core_v2">
+      <div class="card_core_img_v2">
+        <img :src="media" alt="media" />
         <div
           class="card_core_img_v2_push_left"
           v-if="index - 1 >= 0"
@@ -70,8 +105,7 @@ export default {
     "filteredTab",
     "arnaque",
   ],
-  created() {
-  },
+  created() {},
   methods: {
     redirectBackward(index) {
       let newId;

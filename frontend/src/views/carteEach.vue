@@ -16,15 +16,28 @@
         :filteredTab="this.filteredTab"
         :arnaque="0"
       >
-        <ButtonDelete
-        >
-        </ButtonDelete>
+        <ButtonDelete> </ButtonDelete>
 
-        <ButtonUpdate
-        ></ButtonUpdate>
+        <ButtonUpdate></ButtonUpdate>
       </Carte>
     </div>
     <i class="gg-arrow-left-r abs" @click="backward"></i>
+    <div class="all_carousel">
+      <div
+        class="all_carousel_each"
+        v-for="(carousel, k) in tabCarousel"
+        :key="k"
+      >
+        <CarteCarousel
+          :name="carousel.name"
+          :media="carousel.media"
+          :currentId="$route.params.id"
+          :id="carousel.id"
+          :tabFiltered="filteredTab"
+          :arnaque="0"
+        />
+      </div>
+    </div>
   </main>
 </template>
 
@@ -32,19 +45,22 @@
 // @ is an alias to /src
 
 import Carte from "@/components/carte.vue";
+import CarteCarousel from "@/components/carteCarousel.vue";
 import ButtonUpdate from "@/components/buttonUpdate.vue";
 import ButtonDelete from "@/components/buttonDelete.vue";
 export default {
   name: "Home",
   components: {
     Carte,
+     CarteCarousel,
     ButtonDelete,
-    ButtonUpdate
+    ButtonUpdate,
   },
   data() {
     return {
       allCartes: {},
       filteredTab: {},
+      tabCarousel: [],
       index: 0,
     };
   },
@@ -63,11 +79,26 @@ export default {
     }
     const storagebis = localStorage.getItem("filteredTab");
     this.filteredTab = JSON.parse(storagebis);
-
     // FIND THE INDEX
     while (this.filteredTab[this.index].id != this.$route.params.id) {
       this.index++;
     }
+    // creating tab for the carousel
+    let i = 0;
+    this.tabCarousel.push(this.filteredTab[this.index]);
+    while (this.filteredTab[this.index - i] && ++i <= 3) {
+      if (this.filteredTab[this.index - i]) {
+        this.tabCarousel.unshift(this.filteredTab[this.index - i]);
+      }
+    }
+    i = 0;
+    while (this.filteredTab[this.index + i] && ++i <= 3) {
+      if (this.filteredTab[this.index + i]) {
+        this.tabCarousel.push(this.filteredTab[this.index + i]);
+      }
+    }
+    // tab for the carousel
+
     fetch("http://localhost:5000/api/cartes/" + this.$route.params.id, {
       method: "GET",
       headers: new Headers({
@@ -108,6 +139,17 @@ $orange: darken(orange, 5);
     margin-top: 2em;
   }
 }
+
+.all_carousel {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  &_each {
+    width: 13%;
+    margin-right: 0.5em;
+  }
+}
+
 .abs {
   position: absolute;
 }
