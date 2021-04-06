@@ -146,7 +146,8 @@ $orange: darken(orange, 5);
   flex-wrap: wrap;
   &_each {
     width: 13%;
-    margin-right: 0.5em;
+    margin-right: -0.5em;
+        margin-left: -0.5em;
   }
 }
 

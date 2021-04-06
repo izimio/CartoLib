@@ -20,7 +20,7 @@
         <i class="gg-chevron-down-o" @click="showArbo++"></i>
       </div>
     </div>
-    <div class="all_arbo" v-if="showArbo % 2 == 0">
+    <div class="all_arbo" v-if="showArbo % 2 == 0" :key="cursed">
       <InfoArbo />
     </div>
     <h2 class="subtitle">Les plus récentes</h2>
@@ -63,7 +63,7 @@ export default {
   },
   data() {
     return {
-      showArbo: 0,
+      showArbo: 1,
       allCartes: [],
       AllInfosArbo: {},
       allPays: [],
@@ -72,10 +72,12 @@ export default {
       allCount: [],
       allCarteNotFiltered: [],
       error: "",
+      cursed: 0,
     };
   },
   methods: {},
   created() {
+    this.cursed++;
     const storage = localStorage.getItem("openner");
     if (!storage) {
       return this.$router.push({ path: "/" });

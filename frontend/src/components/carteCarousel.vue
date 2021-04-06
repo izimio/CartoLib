@@ -52,7 +52,6 @@ $orange: darken(orange, 5);
   box-shadow: 0rem 0.5rem 2rem 0.1rem darken(red, 20);
 }
 .card_carousel {
-  padding-bottom: 2em;
   &_img {
     position: relative;
     width: 100%;
@@ -69,7 +68,7 @@ $orange: darken(orange, 5);
       cursor: pointer;
       max-width: 100%;
       min-width: 20%;
-      height: 200px;
+      height: 100px;
       margin-bottom: -0.5em;
       &:hover {
         box-shadow: 0rem 0.5rem 2rem 0.1rem lighten(black, 60%);

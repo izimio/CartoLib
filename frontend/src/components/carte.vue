@@ -212,8 +212,8 @@ $orange: darken(orange, 5);
           width: auto;
           max-width: 100%;
           min-width: 20%;
-          max-height: 850px;
-          min-height: 850px;
+          max-height: 700px;
+          min-height: 700px;
           box-shadow: 0rem 0.5rem 2rem 0.1rem lighten(black, 60%);
         }
         &_push_left {
