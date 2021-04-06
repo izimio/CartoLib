@@ -20,7 +20,6 @@ export default {
   created() {
     const storage = localStorage.getItem("inforArbo");
     this.test = JSON.parse(storage);
-    console.log(this.test.allCommunes);
 
     // NOMBRE DE CARTE PAR PAYS
     let i;
@@ -32,9 +31,7 @@ export default {
         t = -1;
         while (this.test.allCommunes[++t]) {
           if (this.test.allCommunes[t].pays == "Allemagne") {
-            console.log(this.test.allCommunes[t].departement);
             res += this.test.allCommunes[t].tab.length / 2;
-            console.log(this.test.allCommunes[t].tab);
           }
         }
       }
