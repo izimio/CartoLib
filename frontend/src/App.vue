@@ -26,6 +26,7 @@ export default {};
 @import url('https://css.gg/push-right.css');
 @import url('https://css.gg/pen.css');
 @import url('https://css.gg/trash.css');
+@import url('https://css.gg/chevron-down-o.css');
 html,
 body {
   margin: 0;

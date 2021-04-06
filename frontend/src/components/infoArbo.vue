@@ -23,7 +23,12 @@
         </h3>
       </div>
     </div>
-    <div class="all_num_departements">
+    <div
+      v-bind:class="{
+        all_num_departements: choosedPays,
+        height: !choosedPays,
+      }"
+    >
       <div class="sep" v-if="tabDep[0]"></div>
       <div
         v-for="(departement, b) in tabDep"
@@ -46,7 +51,12 @@
         </p>
       </div>
     </div>
-    <div class="all_num_commune">
+    <div
+      v-bind:class="{
+        all_num_commune: choosedDepartement,
+        height: !choosedDepartement,
+      }"
+    >
       <div class="sep" v-if="tabComFiltered[0]"></div>
       <div
         v-for="(commune, c) in tabComFiltered"
@@ -65,7 +75,7 @@
         </p>
       </div>
     </div>
-    <div class="find_button">
+    <div class="find_button" v-if="choosedPays">
       <div class="find_button_send" @click="redirectSearch()">
         <button class="find_button_send_button">RECHERCHER</button>
       </div>
@@ -104,9 +114,7 @@ export default {
         departement: this.choosedDepartement ? this.choosedDepartement : null,
         commune: this.choosedCommune ? this.choosedCommune : null,
       };
-      localStorage.setItem(
-        "infoArbo_search",
-        JSON.stringify(body))
+      localStorage.setItem("infoArbo_search", JSON.stringify(body));
       this.$router.push({ path: "/search" });
     },
     ft_calc_pays(paysName) {
@@ -217,6 +225,17 @@ export default {
 <style lang="scss">
 $orange: darken(orange, 5);
 
+.height {
+  height: 0%;
+  border: 2px solid red;
+  opacity: 0;
+}
+
+.all_arbo {
+  transition: 600ms;
+  background-color: lighten($orange, 5);
+}
+
 .nothingChoosed {
   background-color: lighten($orange, 2);
   padding: 0.5em;
@@ -254,6 +273,7 @@ $orange: darken(orange, 5);
 }
 
 .all_num {
+      transition: 400ms;
   &_pays {
     background-color: lighten($orange, 5);
     display: flex;
@@ -271,8 +291,8 @@ $orange: darken(orange, 5);
     }
   }
   &_departements {
+    transition: 400ms;
     padding-top: 1em;
-    background-color: lighten($orange, 5);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -287,8 +307,8 @@ $orange: darken(orange, 5);
     }
   }
   &_commune {
+    transition: 400ms;
     padding-top: 1em;
-    background-color: lighten($orange, 5);
     display: flex;
     justify-content: center;
     align-items: center;

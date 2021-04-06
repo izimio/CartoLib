@@ -9,7 +9,18 @@
         <button>Filtrer</button>
       </router-link>
     </div>
-    <div class="all_arbo">
+    <div @click="showArbo++" class="all_hub_upper_chevron">
+      <div
+        class="all_hub_upper_chevron_i"
+        v-bind:class="{
+          down: showArbo % 2 == 0,
+          up: showArbo % 2 != 0,
+        }"
+      >
+        <i class="gg-chevron-down-o"></i>
+      </div>
+    </div>
+    <div class="all_arbo" v-if="showArbo % 2 == 0">
       <InfoArbo />
     </div>
     <h2 class="subtitle">Les plus récentes</h2>
@@ -52,6 +63,7 @@ export default {
   },
   data() {
     return {
+      showArbo: 0,
       allCartes: [],
       AllInfosArbo: {},
       allPays: [],
@@ -82,7 +94,7 @@ export default {
         } else {
           let p;
           p = -1;
-          while (arr.carte[++p] && p < 10) {
+          while (arr.carte[++p] && p < 20) {
             this.allCartes.push(arr.carte[p]);
           }
           localStorage.setItem("filteredTab", JSON.stringify(this.allCartes));
@@ -157,8 +169,8 @@ export default {
                   ) {
                     allCom.push(arr.carte[i].commune);
                     let id = {
-                      id: arr.carte[i].id
-                    }
+                      id: arr.carte[i].id,
+                    };
                     allCom.push(id);
                   }
                 }
@@ -194,6 +206,17 @@ body {
   background: white;
 }
 
+.up {
+  i {
+    transform: rotate(180deg) scale(2);
+  }
+}
+
+.down {
+  i {
+    transform: rotate(0deg) scale(2);
+  }
+}
 .nothing {
   justify-content: center;
   display: flex;
@@ -235,6 +258,21 @@ body {
       margin-top: 0.9em;
     }
     background-color: lighten($orange, 5);
+    &_chevron {
+      padding-bottom: 1.5em;
+      &_i {
+        margin-left: 4em;
+        margin-top: -0.5em;
+        i {
+          transition: 500ms;
+          &:hover {
+            opacity: 0.8;
+            cursor: pointer;
+          }
+        }
+      }
+      background-color: lighten($orange, 5);
+    }
   }
 }
 .allCartebis {
