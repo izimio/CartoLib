@@ -1,6 +1,6 @@
 <template>
   <div class="all_arbo">
-    <p>{{ test}}</p>
+    <p>{{ test }}</p>
   </div>
 </template>
 
@@ -14,13 +14,15 @@ export default {
       countCommune: 0,
       countDepartement: 0,
       allPays: [],
-      test: {}
+      test: {},
     };
   },
   created() {
     const storage = localStorage.getItem("inforArbo");
-    this.test  = JSON.parse(storage);
-    console.log(this.test.allCommunes)
+    this.test = JSON.parse(storage);
+    console.log(this.test.allCommunes);
+
+    // NOMBRE DE CARTE PAR PAYS
     let i;
     let t;
     let res = 0;
@@ -30,7 +32,7 @@ export default {
         t = -1;
         while (this.test.allCommunes[++t]) {
           if (this.test.allCommunes[t].pays == "Allemagne") {
-              console.log(this.test.allCommunes[t].departement)
+            console.log(this.test.allCommunes[t].departement);
             res += this.test.allCommunes[t].tab.length / 2;
             console.log(this.test.allCommunes[t].tab);
           }
@@ -38,6 +40,7 @@ export default {
       }
     }
     console.log(res)
+    // NOMBRE DE CARTE PAR PAYS
   },
   methods: {},
 };
