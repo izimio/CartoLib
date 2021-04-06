@@ -8,14 +8,21 @@
           current: id == currentId,
         }"
       />
-      <p class="card_carousel_img_name">{{ name }}</p>
+      <p class="card_carousel_img_name"> {{ name }}</p>
     </div>
   </article>
 </template>
 <script>
 export default {
   name: "CarteCarousel",
-  props: ["id", "currentId", "name", "media", "filteredTab", "arnaque"],
+  props: [
+    "id",
+    "currentId",
+    "name",
+    "media",
+    "filteredTab",
+    "arnaque",
+  ],
   created() {},
   methods: {
     redirectCarousel() {
@@ -50,7 +57,6 @@ $orange: darken(orange, 5);
     position: relative;
     width: 100%;
     &:hover {
-      cursor: pointer;
       .card_carousel_img_name {
         opacity: 1;
       }
@@ -61,7 +67,6 @@ $orange: darken(orange, 5);
     }
     img {
       cursor: pointer;
-      width: auto;
       max-width: 100%;
       min-width: 20%;
       height: 200px;

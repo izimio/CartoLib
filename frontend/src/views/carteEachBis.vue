@@ -141,13 +141,6 @@ $orange: darken(orange, 5);
   }
 }
 
-.all_carousel {
-  display: flex;
-  flex-wrap: wrap;
-  &_each {
-    width: 14%;
-  }
-}
 
 .abs {
   position: absolute;
