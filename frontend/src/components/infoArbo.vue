@@ -19,7 +19,8 @@
             createDepTab(infos);
           "
         >
-          {{ infos }} : {{ ft_calc_pays(infos) }}
+          {{ infos }} :
+          <span class="carteNumber"> {{ ft_calc_pays(infos) }} </span>
         </h3>
       </div>
     </div>
@@ -47,7 +48,7 @@
             createComTab(departement);
           "
         >
-          {{ departement }} : {{ ft_calc_departement(departement) }}
+          {{ departement }} : <span class="carteNumber">{{ ft_calc_departement(departement) }}</span>
         </p>
       </div>
     </div>
@@ -71,7 +72,7 @@
           }"
           @click="choosedCommune = commune"
         >
-          {{ commune }} : {{ ft_calc_commune(commune) }}
+          {{ commune }} : <span class="carteNumber">{{ ft_calc_commune(commune) }}</span>
         </p>
       </div>
     </div>
@@ -225,6 +226,10 @@ export default {
 <style lang="scss">
 $orange: darken(orange, 5);
 
+.carteNumber {
+text-decoration: underline;
+}
+
 .height {
   height: 0%;
   border: 2px solid red;
@@ -232,6 +237,7 @@ $orange: darken(orange, 5);
 }
 
 .all_arbo {
+  font-weight: bold;
   transition: 600ms;
   background-color: lighten($orange, 5);
 }
@@ -273,7 +279,7 @@ $orange: darken(orange, 5);
 }
 
 .all_num {
-      transition: 400ms;
+  transition: 400ms;
   &_pays {
     background-color: lighten($orange, 5);
     display: flex;
