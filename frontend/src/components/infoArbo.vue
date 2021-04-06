@@ -1,25 +1,45 @@
 <template>
   <div class="all_arbo">
-    <p>{{ allPays }}</p>
+    <p>{{ test}}</p>
   </div>
 </template>
 
 <script>
 export default {
   name: "InfoArbo",
-  props: ["arrAllInfos"],
+  props: [],
   data() {
     return {
       countPays: 0,
       countCommune: 0,
       countDepartement: 0,
       allPays: [],
+      test: {}
     };
   },
   created() {
+    const storage = localStorage.getItem("inforArbo");
+    this.test  = JSON.parse(storage);
+    console.log(this.test.allCommunes)
+    let i;
+    let t;
+    let res = 0;
+    i = -1;
+    while (this.test.allDepartements[++i]) {
+      if (this.test.allDepartements[i].pays == "Allemagne") {
+        t = -1;
+        while (this.test.allCommunes[++t]) {
+          if (this.test.allCommunes[t].pays == "Allemagne") {
+              console.log(this.test.allCommunes[t].departement)
+            res += this.test.allCommunes[t].tab.length / 2;
+            console.log(this.test.allCommunes[t].tab);
+          }
+        }
+      }
+    }
+    console.log(res)
   },
-  methods: {
-  },
+  methods: {},
 };
 </script>
 

@@ -10,7 +10,7 @@
       </router-link>
     </div>
     <div class="all_arbo">
-      <InfoArbo :arrAllInfos="allCartes" />
+      <InfoArbo />
     </div>
     <h2 class="subtitle">Les plus récentes</h2>
     <article v-if="allCartes[0]" class="allCartebis">
@@ -53,6 +53,7 @@ export default {
   data() {
     return {
       allCartes: [],
+      AllInfosArbo: {},
       allPays: [],
       allDepartement: [],
       allCommunes: [],
@@ -134,7 +135,6 @@ export default {
 
           // DEFINE COMMUNE
           let o;
-
           o = -1;
           p = -1;
           i = -1;
@@ -150,14 +150,19 @@ export default {
                   j = -1;
                   trigger = 0;
                   while (allCom[++j]) {
-                    if (allCom[j] == arr.carte[i].commune) trigger++;
+                    if (allCom[j].id == arr.carte[i].id) trigger++;
                   }
                   if (
                     trigger == 0 &&
                     arr.carte[i].pays == this.allPays[k] &&
                     arr.carte[i].departement == this.allDepartement[k].tab[o]
-                  )
+                  ) {
                     allCom.push(arr.carte[i].commune);
+                    let id = {
+                      id: arr.carte[i].id
+                    }
+                    allCom.push(id);
+                  }
                 }
               }
               let tmp = {};
@@ -169,6 +174,12 @@ export default {
               this.allCommunes.push(tmp);
             }
           }
+          this.AllInfosArbo = {
+            allPays: this.allPays,
+            allDepartements: this.allDepartement,
+            allCommunes: this.allCommunes,
+          };
+          localStorage.setItem("inforArbo", JSON.stringify(this.AllInfosArbo));
         }
       })
       .catch((error) => {
