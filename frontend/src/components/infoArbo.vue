@@ -95,8 +95,6 @@ export default {
   created() {
     const storage = localStorage.getItem("inforArbo");
     this.allInfos = JSON.parse(storage);
-    console.log("aaa");
-    console.log(this.allInfos);
     localStorage.removeItem("infoArbo_search");
   },
   methods: {

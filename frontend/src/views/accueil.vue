@@ -85,7 +85,6 @@ export default {
           while (arr.carte[++p] && p < 10) {
             this.allCartes.push(arr.carte[p]);
           }
-          console.log(this.allCartes)
           localStorage.setItem("filteredTab", JSON.stringify(this.allCartes));
           // DEFINE PAYS
           let i;
