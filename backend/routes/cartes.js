@@ -7,6 +7,7 @@ const CartesCtrl = require('../controllers/cartes')
 
 router.post('/',multer, CartesCtrl.createCarte);
 router.get('/', CartesCtrl.getAllCartes);
+router.get('/created', CartesCtrl.getAllCartesByCreation);
 router.get('/:id', CartesCtrl.getOneCarte)
 router.delete('/:id',multer, CartesCtrl.deleteCarte)
 router.put('/:id',multer, CartesCtrl.updateCarte)

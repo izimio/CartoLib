@@ -60,6 +60,31 @@ exports.getAllCartes = (req, res, next) => {
 
 }
 
+exports.getAllCartesByCreation = (req, res, next) => {
+     models.Cartes.findAll({ // getting all the post and order them by update
+               attributes: ['id', 'name', 'year', 'media', 'commune', 'pays', 'type', 'departement', 'updatedAt', 'createdAt'],
+               order: [
+                    ['createdAt', 'DESC']
+               ],
+          })
+          .then(carte => {
+               if (carte == null) { // if there are no post
+                    return res.status(404).json({
+                         error: 'Ce post n\'existe pas !'
+                    })
+               }
+               res.status(200).json({ // then
+                    carte
+               })
+          })
+          .catch(error => {
+               res.status(400).json({
+                    error: error
+               })
+          })
+
+}
+
 exports.getOneCarte = (req, res, next) => {
      models.Cartes.findOne({ // getting one post linked with the right Id
                attributes: ['id', 'name', 'year', 'media', 'commune', 'pays', 'type', 'departement', 'updatedAt', 'createdAt'],

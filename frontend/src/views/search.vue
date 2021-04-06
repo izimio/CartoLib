@@ -95,6 +95,13 @@
           RECHERCHER
         </button>
       </div>
+      <p class="result_num" v-if="allCartesFiltered.length >= 1">
+        {{ allCartesFiltered.length }} résultat<span
+          v-if="allCartesFiltered.length > 1"
+          >s</span
+        >
+        trouvé<span v-if="allCartesFiltered.length > 1">s</span>
+      </p>
     </div>
     <article v-if="allCartesFiltered[0]" class="allCarte">
       <div
@@ -194,7 +201,10 @@ export default {
           this.allCartesFiltered.push(this.allCartes[i]);
         }
       }
-      localStorage.setItem("filteredTab", JSON.stringify(this.allCartesFiltered));
+      localStorage.setItem(
+        "filteredTab",
+        JSON.stringify(this.allCartesFiltered)
+      );
     },
     ft_parseInt() {
       this.minY = parseInt(this.minY);
@@ -254,7 +264,13 @@ export default {
     if (!storage) {
       return this.$router.push({ path: "/" });
     }
-
+    const tmp = localStorage.getItem("infoArbo_search");
+    if (tmp) {
+      const tmpres = JSON.parse(tmp);
+      this.pays = tmpres.pays ? tmpres.pays : "Tout";
+      this.departement = tmpres.departement ? tmpres.departement : "Tout";
+      this.commune = tmpres.commune ? tmpres.commune : "Tout";
+    }
     fetch("http://localhost:5000/api/cartes/", {
       method: "GET",
       headers: new Headers({
@@ -285,6 +301,13 @@ export default {
             }
           }
           this.allPays.sort();
+          this.FilterCartes();
+          if (this.pays != "Tout") {
+            this.defineDepartement();
+          }
+          if (this.departement != "Tout") {
+            this.defineCommune();
+          }
         }
       })
       .catch((error) => {
@@ -314,6 +337,14 @@ h1 {
   transform: scale(2);
   top: 20px;
   left: 20px;
+}
+
+.result_num {
+  text-decoration: underline;
+  margin-top: 0em;
+  font-weight: bold;
+  text-align: center;
+  padding-bottom: 1em;
 }
 
 .allCarte {
