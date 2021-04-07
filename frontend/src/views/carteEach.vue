@@ -43,7 +43,6 @@
 
 <script>
 // @ is an alias to /src
-
 import Carte from "@/components/carte.vue";
 import CarteCarousel from "@/components/carteCarousel.vue";
 import ButtonUpdate from "@/components/buttonUpdate.vue";
@@ -98,7 +97,6 @@ export default {
       }
     }
     // tab for the carousel
-
     fetch("http://localhost:5000/api/cartes/" + this.$route.params.id, {
       method: "GET",
       headers: new Headers({
@@ -122,7 +120,6 @@ export default {
 
 <style lang="scss">
 $orange: darken(orange, 5);
-
 .all_each {
   font-family: "indie flower";
   background: lighten;
@@ -139,7 +136,6 @@ $orange: darken(orange, 5);
     margin-top: 2em;
   }
 }
-
 .all_carousel {
   display: flex;
   justify-content: center;
@@ -150,11 +146,9 @@ $orange: darken(orange, 5);
         margin-left: -0.5em;
   }
 }
-
 .abs {
   position: absolute;
 }
-
 .gg-arrow-left-r {
   &:hover {
     cursor: pointer;

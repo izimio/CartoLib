@@ -8,37 +8,32 @@
           current: id == currentId,
         }"
       />
-      <p class="card_carousel_img_name"> {{ name }}</p>
+      <p class="card_carousel_img_name">{{ name }}</p>
     </div>
   </article>
 </template>
 <script>
 export default {
   name: "CarteCarousel",
-  props: [
-    "id",
-    "currentId",
-    "name",
-    "media",
-    "filteredTab",
-    "arnaque",
-  ],
+  props: ["id", "currentId", "name", "media", "filteredTab", "arnaque"],
   created() {},
   methods: {
     redirectCarousel() {
       let newId;
       newId = this.id;
-      if (this.arnaque == 0) {
-        this.$router.push({
-          name: "eachswap",
-          params: { id: newId },
-        });
-      }
-      if (this.arnaque == 1) {
-        this.$router.push({
-          name: "each",
-          params: { id: newId },
-        });
+      if (newId != this.currentId) {
+        if (this.arnaque == 0) {
+          this.$router.push({
+            name: "eachswap",
+            params: { id: newId },
+          });
+        }
+        if (this.arnaque == 1) {
+          this.$router.push({
+            name: "each",
+            params: { id: newId },
+          });
+        }
       }
     },
   },
@@ -47,9 +42,8 @@ export default {
 
 <style lang="scss">
 $orange: darken(orange, 5);
-
 .current {
-  box-shadow: 0rem 0.5rem 2rem 0.1rem darken(red, 20);
+  box-shadow: 0rem 0.5rem 2rem 0.1rem darken(black, 20);
 }
 .card_carousel {
   &_img {

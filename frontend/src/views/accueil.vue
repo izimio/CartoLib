@@ -96,7 +96,7 @@ export default {
         } else {
           let p;
           p = -1;
-          while (arr.carte[++p] && p < 20) {
+          while (arr.carte[++p] && p < 15) {
             this.allCartes.push(arr.carte[p]);
           }
           localStorage.setItem("filteredTab", JSON.stringify(this.allCartes));
@@ -281,7 +281,7 @@ body {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  margin-bottom: 4em;
+  margin-bottom: 1em;
   &_eachbis {
     overflow-x: hidden;
     width: 20%;
